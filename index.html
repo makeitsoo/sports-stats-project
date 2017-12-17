@@ -9,6 +9,12 @@
 		<link rel="stylesheet" href="https://bootswatch.com/3/superhero/bootstrap.min.css">
   <!-- CSS link -->
 
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
 
 </head>
 <body>
@@ -28,10 +34,10 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+        <li class="active"><a href="#">Map<span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Stats</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sports<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Action</a></li>
             <li><a href="#">Another action</a></li>
@@ -45,7 +51,7 @@
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" class="form-control" placeholder="Player Search">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
@@ -66,6 +72,9 @@
             <h3 class="panel-title">Select a City/Team</h3>
           </div>
           <div class="panel-body">
+              <div id="map">
+                
+              </div> <!-- close map div -->
           </div> <!-- close panel body -->
         </div> <!--panel close-->
   		</div> <!--close col -->
@@ -91,7 +100,38 @@
 
 <!-- JavaScript -->
   <script type="text/javascript">
+      function initMap() {
+        var SF = {lat: 37.774929, lng: -122.419416};
+        var NYC = {lat: 40.712775, lng: -74.005973};
+        var MSP = {lat: 44.974310, lng: -93.259688};
+        var DAL = {lat: 32.747284, lng: -97.094494};
 
+        var middleLoc = {lat: 39.8283, lng: -98.5795};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: middleLoc
+        });
+        var marker1 = new google.maps.Marker({
+          position: SF,
+          map: map
+        });
+        var marker2 = new google.maps.Marker({
+          position: NYC,
+          map: map
+        });
+        var marker3 = new google.maps.Marker({
+          position: MSP,
+          map: map
+        });
+        var marker4 = new google.maps.Marker({
+          position: DAL,
+          map: map
+        });
+      }
+  </script>
+  <!-- link to google maps API - API key: AIzaSyDpBWmjLvYi9EQfmGetKl8wtPZpGVRyZHA -->
+  <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpBWmjLvYi9EQfmGetKl8wtPZpGVRyZHA&callback=initMap">
   </script>
 
 </body>

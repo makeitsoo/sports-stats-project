@@ -46,47 +46,50 @@
 
 
 
-      // var password = "Rsvrfx35$";
-      // var username = "makeitso";
-      // var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/overall_team_standings.json";
+      var password = "Rsvrfx35$";
+      var username = "makeitso";
+      var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/overall_team_standings.json";
 
       
-      // AJAX call to mysportsfeed.com API
-      // $.ajax
-      // ({
-      //   type: "GET",
-      //   url: queryURL,
-      //   dataType: 'json',
-      //   async: false,
-      //   headers: {
-      //     "Authorization": "Basic " + btoa(username + ":" + password)
-      //   },
-      //   data: '{ "comment" }',
-      //   success: function (){
-      //     alert('Thanks for your comment!'); 
-      //   }
-      // });
+      //AJAX call to mysportsfeed.com API
+      $.ajax
+      ({
+        type: "GET",
+        url: queryURL,
+        dataType: 'json',
+        async: false,
+        headers: {
+          "Authorization": "Basic " + btoa(username + ":" + password)
+        },
+        
+        success: function (){
+          alert('Thanks for your comment!'); 
+        }
+
+      }).done(function(response) {
+          console.log(response);
+      })
 
       //var queryURL = "http://api.football-data.org/v1/competitions/398/leagueTable";
 
-      $.ajax({
-        headers: { 'X-Auth-Token': '13292341c3e7463b82599f29f23716da' },
-        url: 'http://api.football-data.org/v1/fixtures?timeFrame=n1',
-        dataType: 'json',
-        type: 'GET',
-      }).done(function(response) {
-        // do something with the response, e.g. isolate the id of a linked resource        
-        var regex = /.*?(\d+)$/; // the ? makes the first part non-greedy
-        var res = regex.exec(response.fixtures[0]._links.awayTeam.href);
-        var teamId = res[1];
-        console.log(teamId);
-        console.log(response);
+      // $.ajax({
+      //   headers: { 'X-Auth-Token': '13292341c3e7463b82599f29f23716da' },
+      //   url: 'http://api.football-data.org/v1/fixtures?timeFrame=n1',
+      //   dataType: 'json',
+      //   type: 'GET',
+      // }).done(function(response) {
+      //   // do something with the response, e.g. isolate the id of a linked resource        
+      //   var regex = /.*?(\d+)$/; // the ? makes the first part non-greedy
+      //   var res = regex.exec(response.fixtures[0]._links.awayTeam.href);
+      //   var teamId = res[1];
+      //   console.log(teamId);
+      //   console.log(response);
 
-        var data = response.data;
-        console.log(data);
+      //   // var data = response.data;
+      //   // console.log(data);
 
 
-      }); 
+      // }); 
 
       // test jQuery
       $("#stats").html("test the jQuery innerHTML");

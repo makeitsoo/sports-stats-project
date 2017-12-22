@@ -99,5 +99,17 @@
       $("#stats").html("test the jQuery innerHTML");
 
 
+// firebase 
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
+    authDomain: "sportsmap-1513476316039.firebaseapp.com",
+    databaseURL: "https://sportsmap-1513476316039.firebaseio.com",
+    projectId: "sportsmap-1513476316039",
+    storageBucket: "sportsmap-1513476316039.appspot.com",
+    messagingSenderId: "505062349594"
+  };
+  firebase.initializeApp(config);
 
 

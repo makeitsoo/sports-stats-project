@@ -62,13 +62,15 @@
           "Authorization": "Basic " + btoa(username + ":" + password)
         },
         
-        success: function (){
+        success: function (response){
+          console.log(response);
           alert('Thanks for your comment!'); 
         }
 
-      }).done(function(response) {
-          console.log(response);
       })
+      // .done(function(response) {
+      //     console.log(response);
+      // })
 
       //var queryURL = "http://api.football-data.org/v1/competitions/398/leagueTable";
 

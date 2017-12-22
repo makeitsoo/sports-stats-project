@@ -51,7 +51,7 @@
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/overall_team_standings.json";
 
       
-      //AJAX call to mysportsfeed.com API
+      //AJAX call to mysportsfeed.com API - multiple sports and good documentation
       $.ajax
       ({
         type: "GET",
@@ -72,6 +72,8 @@
       //     console.log(response);
       // })
 
+
+      // this is the second option for api from Football-Data.org (only soccer data)
       //var queryURL = "http://api.football-data.org/v1/competitions/398/leagueTable";
 
       // $.ajax({

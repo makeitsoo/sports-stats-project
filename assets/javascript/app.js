@@ -36,7 +36,7 @@
       // create variables to hold credentials for sports API
       var password = "Rsvrfx35$";
       var username = "makeitso";
-      //  API parameters and url
+      //  API parameters and url (Param must be formatted like this "detroit-lions")
       var teamParam = "detroit-lions";
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/full_game_schedule.json?team=" + teamParam;
   
@@ -55,39 +55,41 @@
         // when ajax call done then return response
         success: function (response){
           console.log(response);
-          // alert('Thanks for your comment!'); 
           console.log(response.fullgameschedule.gameentry[0]);
-          var teamStats = response.fullgameschedule.gameentry[0];
-          console.log(teamStats);
-          // team names and location of game
-          var awayTeam = teamStats.awayTeam.Name;
-          var stadium = teamStats.location;
-          var homeTeam = teamStats.homeTeam.Name;
-          var weekNum = teamStats.week;
-          var awayCity = teamStats.awayTeam.City;
-          var homeCity = teamStats.homeTeam.City;
-          var gameTime = teamStats.time;
-          console.log("-----------------------");
-          console.log("Week: " + weekNum);
-          console.log("-----------------------");
-          console.log("--- Home Team ---");
-          console.log("City: " + homeCity);
-          console.log("Home Team: " + homeTeam);
-          console.log("--- Visiting Team ---");
-          console.log("City: " + awayCity);
-          console.log("Away Team: " + awayTeam);
-          console.log("--- Other Info ---");
-          console.log("Stadium: " + stadium);
-          console.log("Game Time: " + gameTime);
-          console.log("-----------------------");
 
+          // for loop to loop through all the games 
+          var gameEntry = response.fullgameschedule.gameentry;
+          console.log(gameEntry.length);
+          for (var i = 0; i < gameEntry.length; i++) {
+            // returns gameEntries which contain all data for each teams schedule
+            var teamStats = response.fullgameschedule.gameentry[i];
+            // created variables to hold team names and location of game, etc.
+            var awayTeam = teamStats.awayTeam.Name;
+            var stadium = teamStats.location;
+            var homeTeam = teamStats.homeTeam.Name;
+            var weekNum = teamStats.week;
+            var awayCity = teamStats.awayTeam.City;
+            var homeCity = teamStats.homeTeam.City;
+            var gameTime = teamStats.time;
+            var gameDate = teamStats.date;
+            console.log("-----------------------");
+            console.log("Week: " + weekNum);
+            console.log("-----------------------");
+            console.log("--- Home Team ---");
+            console.log("City: " + homeCity);
+            console.log("Home Team: " + homeTeam);
+            console.log("--- Visiting Team ---");
+            console.log("City: " + awayCity);
+            console.log("Away Team: " + awayTeam);
+            console.log("--- Other Info ---");
+            console.log("Stadium: " + stadium);
+            console.log("Game Day: " + gameDate);
+            console.log("Game Time: " + gameTime);
+            console.log("-----------------------");
 
-
-          // for (i)
-
-        }
-
-      })
+          } // close for loop
+        } // close API response function
+      }) // close AJAX call
 
       // test jQuery push to DOM
       $("#stats").html("test the jQuery innerHTML");
@@ -102,13 +104,12 @@
       console.log("button works!");
       // This line grabs the input from the textbox and stores in var userSearch
       var userSearch = $("#search").val().trim();
-      console.log(userSearch);
-      // Adds value from the textbox to our array
-      // array.push(userSearch);
-
-
-
+      console.log("Exact User Input: " + userSearch);
+      // assigns value from the textbox to our variable
+      // var teamParam = userSearch;
+    
     })
+    //////////////////////////////////////////////////////////////////////////////////
       // this is the second option for api from Football-Data.org (only soccer data)
       //var queryURL = "http://api.football-data.org/v1/competitions/398/leagueTable";
 
@@ -128,8 +129,8 @@
       //   // var data = response.data;
       //   // console.log(data);
 
-
       // }); 
+    //////////////////////////////////////////////////////////////////////////////////
 
 
 

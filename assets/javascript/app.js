@@ -41,7 +41,7 @@
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/full_game_schedule.json?team=" + teamParam;
   
       // this might be better url -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
-      
+
       
       //AJAX call to mysportsfeed.com API - multiple sports and good documentation
       $.ajax
@@ -87,6 +87,7 @@
             console.log("Game Day: " + gameDate);
             console.log("Game Time: " + gameTime);
             console.log("-----------------------");
+            console.log("---End---");
 
           } // close for loop
         } // close API response function

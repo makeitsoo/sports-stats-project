@@ -28,22 +28,19 @@ function initMap() {
     position: DAL,
     map: map
   });
-      // console.log(marker4);
-      // console.log(marker4.title);
-      // console.log(marker4.title2);
 
 // "teams" Array of objects (each team) with title (city), title2 (name), marker#, etc
     var teams = [
       {
         title: "san francisco",
         title2: "49ers",
-        fullName: "san-francisco-49ers",
+        fullName: "sanfrancisco-49ers",
         marker: marker1
       },
       {
         title: "new york",
         title2: "jets",
-        fullName: "new-york-jets",
+        fullName: "newyork-jets",
         marker: marker2
       },
       {
@@ -59,6 +56,7 @@ function initMap() {
         marker: marker4
       }
     ]
+      console.log("CURRENT OBJECTS in teams array: ")
       console.log(teams);
       // console.log(teams[0].marker);
       // console.log(teams[0].fullName);
@@ -70,19 +68,28 @@ function initMap() {
       var userInput = $("#search").val().trim().toLowerCase();
       // (teamParam must be formatted like this "detroit-lions" or will error out)
       console.log("Exact User Input: " + userInput);
-      // User Input validation (project requirement)
+      //------USER INPUT VALIDATION (project requirement)------//
       // for loop to loop through for comparing userInput with:
       for (var i = 0; i < teams.length; i++) {
         // if userInput == teams.marker.title2 then fullTitle = marker.title + marker.title2
           if (userInput == teams[i].title2) {
+            var team = teams[i].title2;
             var teamParam = teams[i].fullName;
             console.log("CORRECT MATCH: " + teamParam);
             console.log(teams[i].marker);
           }
           else {
-            // alert("Please enter a valid NFL team name (e.g. Packers, Lions, etc.")
             console.log("No match. this is the " + teams[i].fullName + " object")
           }
+      }
+      // user experience - validate user input
+      // if userInput is valid team in teams.title2 object log note
+      if (team == userInput) {
+        console.log(team + " is valid user input");
+      }
+      // else If input not valid team then: alert("Please enter a valid NFL team name (e.g. Packers, Lions, etc.)")
+      else {
+        alert("Please enter a valid NFL team name (e.g. Packers, Lions, Patriots, etc.)");
       }
 
       // create variables to hold credentials for sports API

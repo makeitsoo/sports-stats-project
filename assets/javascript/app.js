@@ -1,48 +1,39 @@
     
-    // create the drop pins and associated coordinates for each city
-      function initMap() {
-        // coordinates for each of the cities 
-        var SF = {lat: 37.774929, lng: -122.419416};
-        var NYC = {lat: 40.712775, lng: -74.005973};
-        var MSP = {lat: 44.974310, lng: -93.259688};
-        var DAL = {lat: 32.747284, lng: -97.094494};
-        // googled middle of U.S. -- these are coordinates
-        var middleLoc = {lat: 39.8283, lng: -98.5795};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: middleLoc
-        });
-        var marker1 = new google.maps.Marker({
-          position: SF,
-          map: map,
-          title: "san francisco",
-          title2: "49ers"
-        });
-        var marker2 = new google.maps.Marker({
-          position: NYC,
-          map: map,
-          title: "new york",
-          title2: "jets"
-        });
-        var marker3 = new google.maps.Marker({
-          position: MSP,
-          map: map,
-          title: "minnesota",
-          title2: "vikings"
-        });
-        var marker4 = new google.maps.Marker({
-          position: DAL,
-          map: map,
-          title: "dallas",
-          title2: "cowboys"
-        });
-      console.log(marker4);
-      console.log(marker4.title);
-      console.log(marker4.title2);
+// create the drop pins and associated coordinates for each city
+function initMap() {
+  // coordinates for each of the cities 
+  var SF = {lat: 37.774929, lng: -122.419416};
+  var NYC = {lat: 40.712775, lng: -74.005973};
+  var MSP = {lat: 44.974310, lng: -93.259688};
+  var DAL = {lat: 32.747284, lng: -97.094494};
+  // googled middle of U.S. -- these are coordinates
+  var middleLoc = {lat: 39.8283, lng: -98.5795};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: middleLoc
+  });
+  var marker1 = new google.maps.Marker({
+    position: SF,
+    map: map
+  });
+  var marker2 = new google.maps.Marker({
+    position: NYC,
+    map: map
+  });
+  var marker3 = new google.maps.Marker({
+    position: MSP,
+    map: map
+  });
+  var marker4 = new google.maps.Marker({
+    position: DAL,
+    map: map
+  });
+      // console.log(marker4);
+      // console.log(marker4.title);
+      // console.log(marker4.title2);
 
 // "teams" Array of objects (each team) with title (city), title2 (name), marker#, etc
     var teams = [
-
       {
         title: "san francisco",
         title2: "49ers",
@@ -69,40 +60,30 @@
       }
     ]
       console.log(teams);
-      console.log(teams[0].marker);
-      console.log(teams[0].fullName);
+      // console.log(teams[0].marker);
+      // console.log(teams[0].fullName);
 
     // When search button is clicked...
     $("#searchButton").on("click", function(event) {
       event.preventDefault();
-      // This line grabs the input from the textbox and stores in var teamParam
-      var userInput = $("#search").val().trim();
+      // This line grabs the input from the textbox and stores in var teamParam after removing extra spaces and convert to lowercase
+      var userInput = $("#search").val().trim().toLowerCase();
       // (teamParam must be formatted like this "detroit-lions" or will error out)
       console.log("Exact User Input: " + userInput);
-
-    // for loop to loop through for comparing userInput with:
-    for (var i = 0; i < teams.length; i++) {
-      // if userInput == teams.marker.title2 then fullTitle = marker.title + marker.title2
-        console.log("team: " + teams[i].fullName);
-        if (userInput == teams[i].title2) {
-          var teamParam = teams[i].fullName;
-          console.log(teamParam);
-        }
-        else {
-          console.log("No match. this is the " + teams[i].fullName + " object")
-        }
-    }
-    console.log(teamParam);
-
-
-      // concatenate marker.title + "-" + userInput (team name) 
-      // var teamParam = marker4.title + "-" + userInput;
-      console.log("city + UserInput: " + teamParam);
-
-
-    // displayTable function re-renders the HTML to display the appropriate content
-    // function displyTable() {
-
+      // User Input validation (project requirement)
+      // for loop to loop through for comparing userInput with:
+      for (var i = 0; i < teams.length; i++) {
+        // if userInput == teams.marker.title2 then fullTitle = marker.title + marker.title2
+          if (userInput == teams[i].title2) {
+            var teamParam = teams[i].fullName;
+            console.log("CORRECT MATCH: " + teamParam);
+            console.log(teams[i].marker);
+          }
+          else {
+            // alert("Please enter a valid NFL team name (e.g. Packers, Lions, etc.")
+            console.log("No match. this is the " + teams[i].fullName + " object")
+          }
+      }
 
       // create variables to hold credentials for sports API
       var password = "Rsvrfx35$";
@@ -111,7 +92,6 @@
       // var teamParam = "detroit-lions";
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + teamParam;
   
-
       // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
       // var date = "20171225";
       // var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
@@ -170,14 +150,13 @@
       // test jQuery push to DOM
       $("#stats").html("test the jQuery innerHTML");
 
-      // clear form
+      // clear user search input form
       $("#search").val("");
 
-    // }
-    // displyTable();
-    })
+    }) // searchButton on click event listener function
+} // initMap function
 
-  }
+
 
 // firebase 
 

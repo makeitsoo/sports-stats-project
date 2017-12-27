@@ -1,3 +1,4 @@
+    
     // create the drop pins and associated coordinates for each city
       function initMap() {
         // coordinates for each of the cities 
@@ -13,39 +14,112 @@
         });
         var marker1 = new google.maps.Marker({
           position: SF,
-          map: map
+          map: map,
+          title: "san francisco",
+          title2: "49ers"
         });
         var marker2 = new google.maps.Marker({
           position: NYC,
-          map: map
+          map: map,
+          title: "new york",
+          title2: "jets"
         });
         var marker3 = new google.maps.Marker({
           position: MSP,
-          map: map
+          map: map,
+          title: "minnesota",
+          title2: "vikings"
         });
         var marker4 = new google.maps.Marker({
           position: DAL,
-          map: map
+          map: map,
+          title: "dallas",
+          title2: "cowboys"
         });
+      console.log(marker4);
+      console.log(marker4.title);
+      console.log(marker4.title2);
+
+// "teams" Array of objects (each team) with title (city), title2 (name), marker#, etc
+    var teams = [
+
+      {
+        title: "san francisco",
+        title2: "49ers",
+        fullName: "san-francisco-49ers",
+        marker: marker1
+      },
+      {
+        title: "new york",
+        title2: "jets",
+        fullName: "new-york-jets",
+        marker: marker2
+      },
+      {
+        title: "minnesota",
+        title2: "vikings",
+        fullName: "minnesota-vikings",
+        marker: marker3
+      },
+      {
+        title: "dallas",
+        title2: "cowboys",
+        fullName: "dallas-cowboys",
+        marker: marker4
       }
+    ]
+      console.log(teams);
+      console.log(teams[0].marker);
+      console.log(teams[0].fullName);
+
+    // When search button is clicked...
+    $("#searchButton").on("click", function(event) {
+      event.preventDefault();
+      // This line grabs the input from the textbox and stores in var teamParam
+      var userInput = $("#search").val().trim();
+      // (teamParam must be formatted like this "detroit-lions" or will error out)
+      console.log("Exact User Input: " + userInput);
+
+    // for loop to loop through for comparing userInput with:
+    for (var i = 0; i < teams.length; i++) {
+      // if userInput == teams.marker.title2 then fullTitle = marker.title + marker.title2
+        console.log("team: " + teams[i].fullName);
+        if (userInput == teams[i].title2) {
+          var teamParam = teams[i].fullName;
+          console.log(teamParam);
+        }
+        else {
+          console.log("No match. this is the " + teams[i].fullName + " object")
+        }
+    }
+    console.log(teamParam);
+
+
+      // concatenate marker.title + "-" + userInput (team name) 
+      // var teamParam = marker4.title + "-" + userInput;
+      console.log("city + UserInput: " + teamParam);
+
 
     // displayTable function re-renders the HTML to display the appropriate content
-    function displyTable() {
+    // function displyTable() {
 
 
       // create variables to hold credentials for sports API
       var password = "Rsvrfx35$";
       var username = "makeitso";
       //  API parameters and url (Param must be formatted like this "detroit-lions")
-      var teamParam = "detroit-lions";
-      var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/full_game_schedule.json?team=" + teamParam;
+      // var teamParam = "detroit-lions";
+      var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + teamParam;
   
-      // this might be better url -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
+
+      // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
+      // var date = "20171225";
+      // var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
+      // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
 
       
       //AJAX call to mysportsfeed.com API - multiple sports and good documentation
-      $.ajax
-      ({
+      $.ajax({
         type: "GET",
         url: queryURL,
         dataType: 'json',
@@ -55,7 +129,7 @@
         },
         // when ajax call done then return response
         success: function (response){
-          console.log(response);
+          // console.log(response);
           console.log(response.fullgameschedule.gameentry[0]);
 
           // for loop to loop through all the games 
@@ -96,45 +170,14 @@
       // test jQuery push to DOM
       $("#stats").html("test the jQuery innerHTML");
 
-    }
-    displyTable();
+      // clear form
+      $("#search").val("");
 
-
-    // When search button is clicked...
-    $("#searchButton").on("click", function(event) {
-      event.preventDefault();
-      console.log("button works!");
-      // This line grabs the input from the textbox and stores in var userSearch
-      var userSearch = $("#search").val().trim();
-      console.log("Exact User Input: " + userSearch);
-      // assigns value from the textbox to our variable
-      // var teamParam = userSearch;
-    
+    // }
+    // displyTable();
     })
-    //////////////////////////////////////////////////////////////////////////////////
-      // this is the second option for api from Football-Data.org (only soccer data)
-      //var queryURL = "http://api.football-data.org/v1/competitions/398/leagueTable";
 
-      // $.ajax({
-      //   headers: { 'X-Auth-Token': '13292341c3e7463b82599f29f23716da' },
-      //   url: 'http://api.football-data.org/v1/fixtures?timeFrame=n1',
-      //   dataType: 'json',
-      //   type: 'GET',
-      // }).done(function(response) {
-      //   // do something with the response, e.g. isolate the id of a linked resource        
-      //   var regex = /.*?(\d+)$/; // the ? makes the first part non-greedy
-      //   var res = regex.exec(response.fixtures[0]._links.awayTeam.href);
-      //   var teamId = res[1];
-      //   console.log(teamId);
-      //   console.log(response);
-
-      //   // var data = response.data;
-      //   // console.log(data);
-
-      // }); 
-    //////////////////////////////////////////////////////////////////////////////////
-
-
+  }
 
 // firebase 
 

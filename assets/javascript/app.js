@@ -411,11 +411,6 @@ function initMap() {
       // var teamParam = "detroit-lions";
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + teamParam;
   
-      // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
-      // var date = "20171225";
-      // var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
-      // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
-
       
       //AJAX call to mysportsfeed.com API - multiple sports and good documentation
       $.ajax({
@@ -462,7 +457,6 @@ function initMap() {
             console.log("-----------------------");
             console.log("---End---");
             // test jQuery push to DOM
-            console.log(homeTeam);
             $("#teamName").html( homeTeam + " Team Stats (2017-2018 season)");
             $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
 
@@ -470,7 +464,25 @@ function initMap() {
         } // close API response function
       }) // close AJAX call
 
+      // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
+      var date = "20171225";
+      var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
+      // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
 
+     $.ajax({
+        type: "GET",
+        url: queryURL2,
+        dataType: 'json',
+        async: false,
+        headers: {
+          "Authorization": "Basic " + btoa(username + ":" + password)
+        },
+        // when ajax call done then return response
+        success: function (response){
+          console.log(response);
+          // console.log(response.fullgameschedule.gameentry[0]);
+        }
+      })
       // clear user search input form
       $("#search").val("");
 

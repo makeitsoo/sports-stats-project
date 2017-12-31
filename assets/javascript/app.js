@@ -1,7 +1,7 @@
     
 // create the drop pins and associated coordinates for each city
 function initMap() {
-  // coordinates for each of the cities 
+  // coordinates for each of the 32 teams stadiums 
   var SF = {lat: 37.4020148919, lng: -121.968869091};
   var NYJ = {lat: 40.712775, lng: -74.005973};
   var MSP = {lat: 44.974310, lng: -93.259688};
@@ -35,12 +35,14 @@ function initMap() {
   var DEN = {lat: 39.743889, lng: -105.02};
   var OAK = {lat: 37.751667, lng: -122.200556};
 
-  // googled middle of U.S. -- these are coordinates
+  // create var for middle of map (these are coordinates for middle of U.S.)
   var middleLoc = {lat: 39.8283, lng: -98.5795};
+  // create var for map
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
     center: middleLoc
   });
+  // create variables for map markers for all 32 teams
   var marker1 = new google.maps.Marker({
     position: SF,
     map: map
@@ -411,7 +413,7 @@ function initMap() {
   
       // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
       // var date = "20171225";
-      // var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
+      // var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
       // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
 
       
@@ -459,13 +461,15 @@ function initMap() {
             console.log("Game Time: " + gameTime);
             console.log("-----------------------");
             console.log("---End---");
+            // test jQuery push to DOM
+            console.log(homeTeam);
+            $("#teamName").html( homeTeam + " Team Stats (2017-2018 season)");
+            $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
 
           } // close for loop
         } // close API response function
       }) // close AJAX call
 
-      // test jQuery push to DOM
-      $("#stats").html("test the jQuery innerHTML");
 
       // clear user search input form
       $("#search").val("");

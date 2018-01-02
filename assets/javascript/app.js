@@ -375,6 +375,9 @@ function initMap() {
     // When search button is clicked...
     $("#searchButton").on("click", function(event) {
       event.preventDefault();
+      userSearch();
+    })
+    function userSearch() {
       // This line grabs the input from the textbox and stores in var teamParam after removing extra spaces and convert to lowercase
       var userInput = $("#search").val().trim().toLowerCase();
       // (teamParam must be formatted like this "detroit-lions" or will error out)
@@ -403,7 +406,14 @@ function initMap() {
         console.log('ERROR: "' + userInput + '" is invalid user input');
         alert("Sorry, '" + userInput + "' is not an NFL team. Please enter a valid NFL team name (e.g. Packers, Lions, Patriots, etc.)");
       }
+      callAPI(teamParam);
+    } // close userSearch function
 
+    // function which takes parameter from click event and calls API via AJAX
+    function callAPI(param) {
+      // pass value of teamParam from userSearch or marker clicks into this function for completing URL req
+      var teamParam = param;
+      console.log(teamParam);
       // create variables to hold credentials for sports API
       var password = "Rsvrfx35$";
       var username = "makeitso";
@@ -412,7 +422,7 @@ function initMap() {
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + teamParam;
   
       
-      //AJAX call to mysportsfeed.com API - multiple sports and good documentation
+      // AJAX call to mysportsfeed.com API - multiple sports and good documentation
       $.ajax({
         type: "GET",
         url: queryURL,
@@ -423,7 +433,7 @@ function initMap() {
         },
         // when ajax call done then return response
         success: function (response){
-          // console.log(response);
+          console.log(response);
           console.log(response.fullgameschedule.gameentry[0]);
 
           // for loop to loop through all the games 
@@ -441,8 +451,10 @@ function initMap() {
             var homeCity = teamStats.homeTeam.City;
             var gameTime = teamStats.time;
             var gameDate = teamStats.date;
+            var gameID = teamStats.id;
             console.log("-----------------------");
             console.log("Week: " + weekNum);
+            console.log("Game ID: " + gameID);
             console.log("-----------------------");
             console.log("--- Home Team ---");
             console.log("City: " + homeCity);
@@ -456,6 +468,24 @@ function initMap() {
             console.log("Game Time: " + gameTime);
             console.log("-----------------------");
             console.log("---End---");
+          // This code for nested AJAX call to use gameID var as required API URL parameter
+           //  var queryURL3 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID;
+
+           // $.ajax({
+           //    type: "GET",
+           //    url: queryURL3,
+           //    dataType: 'json',
+           //    async: false,
+           //    headers: {
+           //      "Authorization": "Basic " + btoa(username + ":" + password)
+           //    },
+           //    // when ajax call done then return response
+           //    success: function (response){
+           //      console.log(response);
+
+           //    } // close response function
+           //  }) // close second AJAX call
+
             // test jQuery push to DOM
             $("#teamName").html( homeTeam + " Team Stats (2017-2018 season)");
             $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
@@ -464,6 +494,7 @@ function initMap() {
         } // close API response function
       }) // close AJAX call
 
+      // SECOND AJAX CALL
       // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
       var date = "20171225";
       var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
@@ -480,13 +511,265 @@ function initMap() {
         // when ajax call done then return response
         success: function (response){
           console.log(response);
-          // console.log(response.fullgameschedule.gameentry[0]);
-        }
-      })
+          // console.log(response.scoreboard.gameScore[0]);
+
+          // for loop to loop through all the games 
+          var gameEntry = response.scoreboard.gameScore;
+          // console.log(gameEntry.length);
+          for (var i = 0; i < gameEntry.length; i++) {
+            // returns gameEntries which contain all data for each teams schedule
+            var teamStats2 = response.scoreboard.gameScore[i];
+            // created variables to hold game id, game status and game scores
+            var gameID = teamStats2.game.ID;
+            var awayTmScore = teamStats2.awayScore;
+            var homeTmScore = teamStats2.homeScore;
+            var gameIsOver = teamStats2.isCompleted;
+            var gameInProgress = teamStats2.isInProgress;
+            var gameIsUnplayed = teamStats2.isUnplayed; 
+            // other data available in this request
+            var awayTeam = teamStats2.game.awayTeam.Name;
+            var stadium = teamStats2.game.location;
+            var homeTeam = teamStats2.game.homeTeam.Name;
+            var weekNum = teamStats2.game.week;
+            var awayCity = teamStats2.game.awayTeam.City;
+            var homeCity = teamStats2.game.homeTeam.City;
+            var gameTime = teamStats2.game.time;
+            var gameDate = teamStats2.game.date;
+
+            // console.log("-----------------------");
+            console.log("Game ID: " + gameID);
+            // console.log("Week: " + weekNum);
+            // console.log("-----------------------");
+            // console.log("--- Home Team ---");
+            // console.log("City: " + homeCity);
+            // console.log("Home Team: " + homeTeam);
+            // console.log("--- Visiting Team ---");
+            // console.log("City: " + awayCity);
+            // console.log("Away Team: " + awayTeam);
+            // console.log("--- Other Info ---");
+            // console.log("Stadium: " + stadium);
+            // console.log("Game Day: " + gameDate);
+            // console.log("Game Time: " + gameTime);
+            console.log("--- Game Results ---");
+            console.log("Game Complete? " + gameIsOver + " | Game In Progress? " + gameInProgress);           
+            console.log(homeTeam + ": " + homeTmScore);
+            console.log(awayTeam + ": " + awayTmScore);
+            console.log("-----------------------");
+            console.log("---End of Results---");
+
+            // push game status and scores to DOM
+            $("#homeTmScore").html(homeTeam + ": " + homeTmScore + " ");
+            $("#awayTmScore").html(awayTeam + ": " + awayTmScore + " ");
+
+          } // close for loop
+        } // close API response function
+      }) // close AJAX call
+
+
       // clear user search input form
       $("#search").val("");
 
-    }) // searchButton on click event listener function
+    } // userSearch function
+
+  // add on click event listener - when a marker clicked
+    marker1.addListener('click', function() {
+      // zoom in to area
+      map.setZoom(8);
+      // center map on marker clicked
+      map.setCenter(marker1.getPosition());
+      // create variable to hold exact string needed for passing into API parameters to get response
+      var teamParam = "sanfrancisco-49ers";
+      // call function for pinging API
+      callAPI(teamParam);
+    });
+
+  // add on click event listeners for all 32 markers
+    marker2.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker2.getPosition());
+      var teamParam = "newyork-jets";
+      callAPI(teamParam);
+    });
+    marker3.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker3.getPosition());
+      var teamParam = "minnesota-vikings";
+      callAPI(teamParam);
+    });
+    marker4.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker4.getPosition());
+      var teamParam = "dallas-cowboys";
+      callAPI(teamParam);
+    });
+    marker5.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker5.getPosition());
+      var teamParam = "greenbay-packers";
+      callAPI(teamParam);
+    });
+    marker6.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker6.getPosition());
+      var teamParam = "detroit-lions";
+      callAPI(teamParam);
+    });
+    marker7.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker7.getPosition());
+      var teamParam = "chicago-bears";
+      callAPI(teamParam);
+    });
+    marker8.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker8.getPosition());
+      var teamParam = "indianapolis-colts";
+      callAPI(teamParam);
+    });
+    marker9.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker9.getPosition());
+      var teamParam = "houston-texans";
+      callAPI(teamParam);
+    });
+    marker10.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker10.getPosition());
+      var teamParam = "washington-redskins";
+      callAPI(teamParam);
+    });
+    marker11.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker11.getPosition());
+      var teamParam = "newyork-giants";
+      callAPI(teamParam);
+    });
+    marker12.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker12.getPosition());
+      var teamParam = "pittsburgh-steelers";
+      callAPI(teamParam);
+    });
+    marker13.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker13.getPosition());
+      var teamParam = "cleveland-browns";
+      callAPI(teamParam);
+    });
+    marker14.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker14.getPosition());
+      var teamParam = "atlanta-falcons";
+      callAPI(teamParam);
+    });
+    marker15.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker15.getPosition());
+      var teamParam = "philadelphia-eagles";
+      callAPI(teamParam);
+    });
+    marker16.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker16.getPosition());
+      var teamParam = "newengland-patriots";
+      callAPI(teamParam);
+    });
+    marker17.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker17.getPosition());
+      var teamParam = "carolina-panthers";
+      callAPI(teamParam);
+    });
+    marker18.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker18.getPosition());
+      var teamParam = "buffalo-bills";
+      callAPI(teamParam);
+    });
+    marker19.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker19.getPosition());
+      var teamParam = "miami-dolphins";
+      callAPI(teamParam);
+    });
+    marker20.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker20.getPosition());
+      var teamParam = "neworleans-saints";
+      callAPI(teamParam);
+    });
+    marker21.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker21.getPosition());
+      var teamParam = "tampabay-buccaneers";
+      callAPI(teamParam);
+    });
+    marker22.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker22.getPosition());
+      var teamParam = "jacksonville-jaguars";
+      callAPI(teamParam);
+    });
+    marker23.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker23.getPosition());
+      var teamParam = "tennesse-titans";
+      callAPI(teamParam);
+    });
+    marker24.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker24.getPosition());
+      var teamParam = "cincinnati-bengals";
+      callAPI(teamParam);
+    });
+    marker25.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker25.getPosition());
+      var teamParam = "baltimore-ravens";
+      callAPI(teamParam);
+    });
+    marker26.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker26.getPosition());
+      var teamParam = "arizona-cardinals";
+      callAPI(teamParam);
+    });
+    marker27.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker27.getPosition());
+      var teamParam = "seattle-seahawks";
+      callAPI(teamParam);
+    });
+    marker28.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker28.getPosition());
+      var teamParam = "losangeles-rams";
+      callAPI(teamParam);
+    });
+    marker29.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker29.getPosition());
+      var teamParam = "losangeles-chargers";
+      callAPI(teamParam);
+    });
+    marker30.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker30.getPosition());
+      var teamParam = "kansascity-chiefs";
+      callAPI(teamParam);
+    });
+    marker31.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker31.getPosition());
+      var teamParam = "denver-broncos";
+      callAPI(teamParam);
+    });
+    marker32.addListener('click', function() {
+      map.setZoom(8);
+      map.setCenter(marker32.getPosition());
+      var teamParam = "oakland-raiders";
+      callAPI(teamParam);
+    });
 } // initMap function
 
 

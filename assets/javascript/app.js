@@ -307,9 +307,9 @@ function initMap() {
         marker: marker22
       },
       {
-        title: "tennesse",
+        title: "tennessee",
         title2: "titans",
-        fullName: "tennesse-titans",
+        fullName: "tennessee-titans",
         marker: marker23
       },
       {
@@ -411,6 +411,7 @@ function initMap() {
 
     // function which takes parameter from click event and calls API via AJAX
     function callAPI(param) {
+
       // pass value of teamParam from userSearch or marker clicks into this function for completing URL req
       var teamParam = param;
       console.log(teamParam);
@@ -433,8 +434,8 @@ function initMap() {
         },
         // when ajax call done then return response
         success: function (response){
-          console.log(response);
-          console.log(response.fullgameschedule.gameentry[0]);
+          // console.log(response);
+          // console.log(response.fullgameschedule.gameentry[0]);
 
           // for loop to loop through all the games 
           var gameEntry = response.fullgameschedule.gameentry;
@@ -453,6 +454,8 @@ function initMap() {
             var gameDate = teamStats.date;
             var gameID = teamStats.id;
             console.log("-----------------------");
+            console.log("------GAME DETAILS-----");
+            console.log("-----------------------");
             console.log("Week: " + weekNum);
             console.log("Game ID: " + gameID);
             console.log("-----------------------");
@@ -466,43 +469,24 @@ function initMap() {
             console.log("Stadium: " + stadium);
             console.log("Game Day: " + gameDate);
             console.log("Game Time: " + gameTime);
-            console.log("-----------------------");
-            console.log("---End---");
-          // This code for nested AJAX call to use gameID var as required API URL parameter
-           //  var queryURL3 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID;
-
-           // $.ajax({
-           //    type: "GET",
-           //    url: queryURL3,
-           //    dataType: 'json',
-           //    async: false,
-           //    headers: {
-           //      "Authorization": "Basic " + btoa(username + ":" + password)
-           //    },
-           //    // when ajax call done then return response
-           //    success: function (response){
-           //      console.log(response);
-
-           //    } // close response function
-           //  }) // close second AJAX call
 
             // test jQuery push to DOM
             $("#teamName").html( homeTeam + " Team Stats (2017-2018 season)");
             $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
-
+            // call second API URL for score data
+            callAPI2(gameID);
           } // close for loop
         } // close API response function
       }) // close AJAX call
 
-      // SECOND AJAX CALL
-      // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
-      var date = "20171225";
-      var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
-      // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
-
-     $.ajax({
+    // This code for nested AJAX call to use gameID var as required API URL parameter
+    function callAPI2(param2) {
+      var gameID = param2;
+      var queryURL3 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID;
+      var queryURL4 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID + "&teamstats=Att,1stDownsTotal,3rdDownsPct,4thDownsPct,Penalties,PenaltyYards";
+      $.ajax({
         type: "GET",
-        url: queryURL2,
+        url: queryURL3,
         dataType: 'json',
         async: false,
         headers: {
@@ -510,66 +494,279 @@ function initMap() {
         },
         // when ajax call done then return response
         success: function (response){
-          console.log(response);
-          // console.log(response.scoreboard.gameScore[0]);
+          // console.log(response);
+          // var path = response.gameboxscore;
+          var awayTeamStats = response.gameboxscore.awayTeam.awayTeamStats;
+          var homeTeamStats = response.gameboxscore.homeTeam.homeTeamStats;
+          // console.log(awayTeamStats);
 
-          // for loop to loop through all the games 
-          var gameEntry = response.scoreboard.gameScore;
-          // console.log(gameEntry.length);
-          for (var i = 0; i < gameEntry.length; i++) {
-            // returns gameEntries which contain all data for each teams schedule
-            var teamStats2 = response.scoreboard.gameScore[i];
-            // created variables to hold game id, game status and game scores
-            var gameID = teamStats2.game.ID;
-            var awayTmScore = teamStats2.awayScore;
-            var homeTmScore = teamStats2.homeScore;
-            var gameIsOver = teamStats2.isCompleted;
-            var gameInProgress = teamStats2.isInProgress;
-            var gameIsUnplayed = teamStats2.isUnplayed; 
-            // other data available in this request
-            var awayTeam = teamStats2.game.awayTeam.Name;
-            var stadium = teamStats2.game.location;
-            var homeTeam = teamStats2.game.homeTeam.Name;
-            var weekNum = teamStats2.game.week;
-            var awayCity = teamStats2.game.awayTeam.City;
-            var homeCity = teamStats2.game.homeTeam.City;
-            var gameTime = teamStats2.game.time;
-            var gameDate = teamStats2.game.date;
 
-            // console.log("-----------------------");
-            console.log("Game ID: " + gameID);
-            // console.log("Week: " + weekNum);
-            // console.log("-----------------------");
-            // console.log("--- Home Team ---");
-            // console.log("City: " + homeCity);
-            // console.log("Home Team: " + homeTeam);
-            // console.log("--- Visiting Team ---");
-            // console.log("City: " + awayCity);
-            // console.log("Away Team: " + awayTeam);
-            // console.log("--- Other Info ---");
-            // console.log("Stadium: " + stadium);
-            // console.log("Game Day: " + gameDate);
-            // console.log("Game Time: " + gameTime);
-            console.log("--- Game Results ---");
-            console.log("Game Complete? " + gameIsOver + " | Game In Progress? " + gameInProgress);           
-            console.log(homeTeam + ": " + homeTmScore);
-            console.log(awayTeam + ": " + awayTmScore);
+  ///// COULD ALSO BUILD second small table to display player injuries for selected team //////
+  ///// THe following stats avail: Name, Number, Position, Injury //////
+  ///// Could have second page with table of active players //////
+  ///// The followig stats avail: Team, Name, Number, Position, Height, Weight, Age, Rookie? ////
+
+
+    console.log("-----------------------------");
+    console.log("------ HOME TEAM STATS ------"); 
+      // down stats and penalties
+      console.log("----- downs and penalties -----");
+          // # first downs
+          var hFirstDownsTotal = Object.values(homeTeamStats.FirstDownsTotal);
+          var homeFirstDownsTotal = hFirstDownsTotal[2];
+          console.log("# First Downs: " + homeFirstDownsTotal);    
+          // third down pct
+          var hThirdDownsPct = Object.values(homeTeamStats.ThirdDownsPct);
+          var homeThirdDownsPct = hThirdDownsPct[2];
+          console.log("Third Down Success Rate (%): " + homeThirdDownsPct);                       
+          // fourth down pct
+          var hFourthDownsPct = Object.values(homeTeamStats.FourthDownsPct);
+          var homeFourthDownsPct = hFourthDownsPct[2];
+          console.log("Fourth Down Success Rate (%): " + homeFourthDownsPct);              
+          // # penalties
+          var hPenalties = Object.values(homeTeamStats.Penalties);
+          var homePenalties = hPenalties[2];
+          console.log("# Penalties: " + homePenalties);  
+          // penalty yards
+          var hPenaltyYds = Object.values(homeTeamStats.PenaltyYds);
+          var homePenaltyYds = hPenaltyYds[2];
+          console.log("Penalties Yards: " + homePenaltyYds);                    
+      // rushing stats
+        console.log("----- Rushing Stats -----");
+          // attempts
+          var hRushAttempts = Object.values(homeTeamStats.RushAttempts);
+          var homeRushAttempts = hRushAttempts[2];
+          console.log("Rush Attempts: " + homeRushAttempts);
+          // yards
+          var hRushYards = Object.values(homeTeamStats.RushYards);
+          var homeRushYards = hRushYards[2];
+          console.log("Rush Yards: " + homeRushYards);          
+          // avg yards per rush
+          var hRushAverage = Object.values(homeTeamStats.RushAverage);
+          var homeRushAverage = hRushAverage[2];
+          console.log("Avg Yards Per Rush (%): " + homeRushAverage);             
+          // TDs
+          var hRushTD = Object.values(homeTeamStats.RushTD);
+          var homeRushTD = hRushTD[2];
+          console.log("Rush TDs: " + homeRushTD);             
+      // passing stats
+        console.log("----- Passing Stats -----");
+          // attempts
+          var hPassAttempts = Object.values(homeTeamStats.PassAttempts);
+          // console.log(hPassAttempts);
+          var homePassAttempts = hPassAttempts[2];
+          console.log("Pass Attempts: " + homePassAttempts);
+          // completions
+          var hPassCompletions = Object.values(homeTeamStats.PassCompletions);
+          var homePassCompletions = hPassCompletions[2];
+          console.log("Pass Completions: " + homePassCompletions);
+          // completion pct
+          var hPassPct = Object.values(homeTeamStats.PassPct);
+          var homePassPct = hPassPct[2];
+          console.log("Completion %: " + homePassPct);
+          // yards
+          var hPassYards = Object.values(homeTeamStats.PassGrossYards);
+          var homePassYards = hPassYards[2];
+          console.log("Pass Yards: " + homePassYards);          
+          // TDs
+          var hPassTD = Object.values(homeTeamStats.PassTD);
+          var homePassTD = hPassTD[2];
+          console.log("Pass TDs: " + homePassTD);              
+      // total offense stats
+        console.log("------ Home Team Total Offense ------");
+          // Total Offense Yards
+          var hOffenseYds = Object.values(homeTeamStats.OffenseYds);
+          var homeOffenseYds = hOffenseYds[2];
+          console.log("Total Offense Yards: " + homeOffenseYds);   
+          // Total TDs 
+          var hTotalTD = Object.values(homeTeamStats.TotalTD);
+          var homeTotalTD = hTotalTD[2];
+          console.log("Total Touchdowns: " + homeTotalTD);             
+          // Interceptions
+          var hInt = Object.values(homeTeamStats.PassInt);
+          var homeInt = hInt[2];
+          console.log("# Interceptions: " + homeInt);             
+          // QB rating
+          var hQBRating = Object.values(homeTeamStats.QBRating);
+          var homeQBRating = hQBRating[2];
+          console.log("QB Rating: " + homeQBRating);          
+
+        
+        console.log("-----------------------------");
+        console.log("------ AWAY TEAM STATS ------"); 
+      // down stats and penalties
+      console.log("----- downs and penalties -----");
+          // # first downs
+          var aFirstDownsTotal = Object.values(awayTeamStats.FirstDownsTotal);
+          var awayFirstDownsTotal = aFirstDownsTotal[2];
+          console.log("# First Downs: " + awayFirstDownsTotal);    
+          // third down pct
+          var aThirdDownsPct = Object.values(awayTeamStats.ThirdDownsPct);
+          var awayThirdDownsPct = aThirdDownsPct[2];
+          console.log("Third Down Success Rate (%): " + awayThirdDownsPct);                       
+          // fourth down pct
+          var aFourthDownsPct = Object.values(awayTeamStats.FourthDownsPct);
+          var awayFourthDownsPct = aFourthDownsPct[2];
+          console.log("Fourth Down Success Rate (%): " + awayFourthDownsPct);              
+          // # penalties
+          var aPenalties = Object.values(awayTeamStats.Penalties);
+          var awayPenalties = aPenalties[2];
+          console.log("# Penalties: " + awayPenalties);  
+          // penalty yards
+          var aPenaltyYds = Object.values(awayTeamStats.PenaltyYds);
+          var awayPenaltyYds = aPenaltyYds[2];
+          console.log("Penalties Yards: " + awayPenaltyYds);                    
+      // rushing stats
+        console.log("----- Rushing Stats -----");
+          // attempts
+          var aRushAttempts = Object.values(awayTeamStats.RushAttempts);
+          var awayRushAttempts = aRushAttempts[2];
+          console.log("Rush Attempts: " + awayRushAttempts);
+          // yards
+          var aRushYards = Object.values(awayTeamStats.RushYards);
+          var awayRushYards = aRushYards[2];
+          console.log("Rush Yards: " + awayRushYards);          
+          // avg yards per rush
+          var aRushAverage = Object.values(awayTeamStats.RushAverage);
+          var awayRushAverage = aRushAverage[2];
+          console.log("Avg Yards Per Rush (%): " + awayRushAverage);             
+          // TDs
+          var aRushTD = Object.values(awayTeamStats.RushTD);
+          var awayRushTD = aRushTD[2];
+          console.log("Rush TDs: " + awayRushTD);    
+
+      // passing stats
+        console.log("----- Passing Stats -----");
+          // attempts
+          var aPassAttempts = Object.values(awayTeamStats.PassAttempts);
+          var awayPassAttempts = aPassAttempts[2];
+          console.log("Pass Attempts (away): " + awayPassAttempts);
+          // completions
+          var aPassCompletions = Object.values(awayTeamStats.PassCompletions);
+          var awayPassCompletions = aPassCompletions[2];
+          console.log("Pass Completions: " + awayPassCompletions);
+          // completion pct
+          var aPassPct = Object.values(awayTeamStats.PassPct);
+          var awayPassPct = aPassPct[2];
+          console.log("Completion %: " + awayPassPct);
+          // yards
+          var aPassYards = Object.values(awayTeamStats.PassGrossYards);
+          var awayPassYards = aPassYards[2];
+          console.log("Pass Yards: " + awayPassYards);          
+          // TDs
+          var aPassTD = Object.values(awayTeamStats.PassTD);
+          var awayPassTD = aPassTD[2];
+          console.log("Pass TDs: " + awayPassTD);              
+      // total offense stats
+        console.log("------ Away Team Total Offense ------");
+          // Total Offense Yards
+          var aOffenseYds = Object.values(awayTeamStats.OffenseYds);
+          var awayOffenseYds = aOffenseYds[2];
+          console.log("Total Offense Yards: " + awayOffenseYds);   
+          // Total TDs 
+          var aTotalTD = Object.values(awayTeamStats.TotalTD);
+          var awayTotalTD = aTotalTD[2];
+          console.log("Total Touchdowns: " + awayTotalTD);             
+          // Interceptions
+          var aInt = Object.values(awayTeamStats.PassInt);
+          var awayInt = aInt[2];
+          console.log("# Interceptions: " + awayInt);             
+          // QB rating
+          var aQBRating = Object.values(awayTeamStats.QBRating);
+          var awayQBRating = aQBRating[2];
+          console.log("QB Rating: " + awayQBRating);    
+
+
+      // total score for both teams
+        console.log("------ GAME SCORE ------")
+            // home team score
+            var homeScore = response.gameboxscore.quarterSummary.quarterTotals.homeScore;
+            console.log("Home Team: " + homeScore);  
+          //   away team score 
+            var awayScore = response.gameboxscore.quarterSummary.quarterTotals.awayScore;
+            console.log("Away Team: " + awayScore);         
             console.log("-----------------------");
-            console.log("---End of Results---");
+            console.log("-----------------------");
 
-            // push game status and scores to DOM
-            $("#homeTmScore").html(homeTeam + ": " + homeTmScore + " ");
-            $("#awayTmScore").html(awayTeam + ": " + awayTmScore + " ");
+        } // close response function
+      }) // close second AJAX call
+    } //close callAPI2 function
 
-          } // close for loop
-        } // close API response function
-      }) // close AJAX call
+      // BACKUP for SECOND AJAX CALL (callAPI2 function) in case nested function doesnt work out
+      // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
+     //  var date = "20171225";
+     //  var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
+     //  // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
+
+     // $.ajax({
+     //    type: "GET",
+     //    url: queryURL2,
+     //    dataType: 'json',
+     //    async: false,
+     //    headers: {
+     //      "Authorization": "Basic " + btoa(username + ":" + password)
+     //    },
+     //    // when ajax call done then return response
+     //    success: function (response){
+     //      console.log(response);
+     //      // console.log(response.scoreboard.gameScore[0]);
+
+     //      // for loop to loop through all the games 
+     //      var gameEntry = response.scoreboard.gameScore;
+     //      // console.log(gameEntry.length);
+     //      for (var i = 0; i < gameEntry.length; i++) {
+     //        // returns gameEntries which contain all data for each teams schedule
+     //        var teamStats2 = response.scoreboard.gameScore[i];
+     //        // created variables to hold game id, game status and game scores
+     //        var gameID = teamStats2.game.ID;
+     //        var awayTmScore = teamStats2.awayScore;
+     //        var homeTmScore = teamStats2.homeScore;
+     //        var gameIsOver = teamStats2.isCompleted;
+     //        var gameInProgress = teamStats2.isInProgress;
+     //        var gameIsUnplayed = teamStats2.isUnplayed; 
+     //        // other data available in this request
+     //        var awayTeam = teamStats2.game.awayTeam.Name;
+     //        var stadium = teamStats2.game.location;
+     //        var homeTeam = teamStats2.game.homeTeam.Name;
+     //        var weekNum = teamStats2.game.week;
+     //        var awayCity = teamStats2.game.awayTeam.City;
+     //        var homeCity = teamStats2.game.homeTeam.City;
+     //        var gameTime = teamStats2.game.time;
+     //        var gameDate = teamStats2.game.date;
+
+     //        // console.log("-----------------------");
+     //        console.log("Game ID: " + gameID);
+     //        // console.log("Week: " + weekNum);
+     //        // console.log("-----------------------");
+     //        // console.log("--- Home Team ---");
+     //        // console.log("City: " + homeCity);
+     //        // console.log("Home Team: " + homeTeam);
+     //        // console.log("--- Visiting Team ---");
+     //        // console.log("City: " + awayCity);
+     //        // console.log("Away Team: " + awayTeam);
+     //        // console.log("--- Other Info ---");
+     //        // console.log("Stadium: " + stadium);
+     //        // console.log("Game Day: " + gameDate);
+     //        // console.log("Game Time: " + gameTime);
+     //        console.log("--- Game Results ---");
+     //        console.log("Game Complete? " + gameIsOver + " | Game In Progress? " + gameInProgress);           
+     //        console.log(homeTeam + ": " + homeTmScore);
+     //        console.log(awayTeam + ": " + awayTmScore);
+     //        console.log("-----------------------");
+     //        console.log("---End of Results---");
+
+     //        // push game status and scores to DOM
+     //        $("#homeTmScore").html(homeTeam + ": " + homeTmScore + " ");
+     //        $("#awayTmScore").html(awayTeam + ": " + awayTmScore + " ");
+
+     //      } // close for loop
+     //    } // close API response function
+     //  }) // close AJAX call
 
 
       // clear user search input form
       $("#search").val("");
-
-    } // userSearch function
+    } // close userSearch function
 
   // add on click event listener - when a marker clicked
     marker1.addListener('click', function() {
@@ -582,7 +779,6 @@ function initMap() {
       // call function for pinging API
       callAPI(teamParam);
     });
-
   // add on click event listeners for all 32 markers
     marker2.addListener('click', function() {
       map.setZoom(8);
@@ -713,7 +909,7 @@ function initMap() {
     marker23.addListener('click', function() {
       map.setZoom(8);
       map.setCenter(marker23.getPosition());
-      var teamParam = "tennesse-titans";
+      var teamParam = "tennessee-titans";
       callAPI(teamParam);
     });
     marker24.addListener('click', function() {
@@ -770,8 +966,8 @@ function initMap() {
       var teamParam = "oakland-raiders";
       callAPI(teamParam);
     });
-} // initMap function
 
+} // close initMap function
 
 
 // firebase 

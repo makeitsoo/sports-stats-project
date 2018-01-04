@@ -493,15 +493,11 @@ function initMap() {
         // when ajax call done then return response
         success: function (response){
           // console.log(response);
-          var path = response.gameboxscore;
-          console.log(path);
-          var hPassAttempts = path.awayTeam.awayTeamStats.PassAttempts;
-          console.log(hPassAttempts);
-          console.log(Object.values(hPassAttempts));
-          var hmPsAt = Object.values(hPassAttempts);
-          console.log(hmPsAt);
-          var numPassAttempts = hmPsAt[2];
-          console.log(numPassAttempts);
+          // var path = response.gameboxscore;
+          var awayTeamStats = response.gameboxscore.awayTeam.awayTeamStats;
+          var homeTeamStats = response.gameboxscore.homeTeam.homeTeamStats;
+          // console.log(awayTeamStats);
+
 
   ////////// THIS IS WHERE I'M STUCK - why cant I get this to return data??? ///////////////////
           // var statsOutput = response.gameboxscore.awayTeam.awayTeamStats.PassAttempts.#text;
@@ -513,7 +509,7 @@ function initMap() {
 
 
 
-        // ------ home team stats ------ 
+        console.log("------ home team stats ------"); 
           // down stats and penalties
           // console.log(response.gameboxscore.awayTeam.awayTeamStats.PassAttempts.#text);
  
@@ -527,19 +523,48 @@ function initMap() {
         //   var hRushYards = path.awayTeam.awayTeamStats.RushYards.#text;
         //   var hRushAverage = path.awayTeam.awayTeamStats.RushAverage.#text;
         //   var hRushTD = path.awayTeam.awayTeamStats.RushTD.#text;
-        //   // passing stats
-        //   var hPassAttempts = path.awayTeam.awayTeamStats.PassAttempts.#text;
-        //   var hPassCompletions = path.awayTeam.awayTeamStats.PassCompletions.#text;
-        //   var hPassPct = path.awayTeam.awayTeamStats.PassPct.#text;
-        //   var hPassYards = path.awayTeam.awayTeamStats.PassGrossYards.#text;
-        //   var hPassTD = path.awayTeam.awayTeamStats.PassTD.#text;
-        //   // total offense stats
-        //   var hOffenseYds = path.awayTeam.awayTeamStats.OffenseYds.#text;
-        //   var hTotalTD = path.awayTeam.awayTeamStats.TotalTD.#text;
-        //   var hPassInt = path.awayTeam.awayTeamStats.PassInt.#text;
-        //   var hQBRating = path.awayTeam.awayTeamStats.QBRating.#text;
+      // passing stats
+          // attempts
+          var hPassAttempts = Object.values(homeTeamStats.PassAttempts);
+          // console.log(hPassAttempts);
+          var homePassAttempts = hPassAttempts[2];
+          console.log("Pass Attempts: " + homePassAttempts);
+          // completions
+          var hPassCompletions = Object.values(homeTeamStats.PassCompletions);
+          var homePassCompletions = hPassCompletions[2];
+          console.log("Pass Completions: " + homePassCompletions);
+          // completion pct
+          var hPassPct = Object.values(homeTeamStats.PassPct);
+          var homePassPct = hPassPct[2];
+          console.log("Completion %: " + homePassPct);
+          // yards
+          var hPassYards = Object.values(homeTeamStats.PassGrossYards);
+          var homePassYards = hPassYards[2];
+          console.log("Passing Yards: " + homePassYards);          
+          // TDs
+          var hPassTD = Object.values(homeTeamStats.PassTD);
+          var homePassTD = hPassTD[2];
+          console.log("Passing TDs: " + homePassTD);              
+      // total offense stats
+        console.log("------ Home Team Total Offense ------");
+          // Total Offense Yards
+          var hOffenseYds = Object.values(homeTeamStats.OffenseYds);
+          var homeOffenseYds = hOffenseYds[2];
+          console.log("Total Offense Yards: " + homeOffenseYds);   
+          // Total TDs 
+          var hTotalTD = Object.values(homeTeamStats.TotalTD);
+          var homeTotalTD = hTotalTD[2];
+          console.log("Total Touchdowns: " + homeTotalTD);             
+          // Pass/Int 
+          var hPassInt = Object.values(homeTeamStats.PassInt);
+          var homePassInt = hPassInt[2];
+          console.log("Pass Attempts per Interception (%): " + homePassInt);             
+          // QB rating
+          var hQBRating = Object.values(homeTeamStats.QBRating);
+          var homeQBRating = hQBRating[2];
+          console.log("QB Rating: " + homeQBRating);          
 
-        // // ------ away team stats ------ 
+        console.log("------ away team stats ------"); 
         //   // down stats and penalties
         //   var aFirstDownsTotal = path.awayTeam.awayTeamStats.FirstDownsTotal.#text;
         //   var aThirdDownsPct = path.awayTeam.awayTeamStats.ThirdDownsPct.#text;
@@ -551,8 +576,13 @@ function initMap() {
         //   var aRushYards = path.awayTeam.awayTeamStats.RushYards.#text;
         //   var aRushAverage = path.awayTeam.awayTeamStats.RushAverage.#text;
         //   var aRushTD = path.awayTeam.awayTeamStats.RushTD.#text;
-        //   // passing stats
-        //   var aPassAttempts = path.awayTeam.awayTeamStats.PassAttempts.#text;
+    // passing stats
+          // attempts
+          var aPassAttempts = Object.values(awayTeamStats.PassAttempts);
+          // console.log(aPassAttempts);
+          var awayPassAttempts = aPassAttempts[2];
+          console.log("Pass Attempts (away): " + awayPassAttempts);
+          // completions
         //   var aPassCompletions = path.awayTeam.awayTeamStats.PassCompletions.#text;
         //   var aPassPct = path.awayTeam.awayTeamStats.PassPct.#text;
         //   var aPassYards = path.awayTeam.awayTeamStats.PassGrossYards.#text;

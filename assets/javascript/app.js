@@ -472,6 +472,8 @@ function initMap() {
           } // close for loop
           // call second API URL for score data (passing gameID parameter)
           callAPI2(gameID);
+          // call function to write to firebase database
+          fireBase(gameEntry);
         } // close first API response function
       }) // close AJAX call
 
@@ -494,14 +496,11 @@ function initMap() {
           // var path = response.gameboxscore;
           var awayTeamStats = response.gameboxscore.awayTeam.awayTeamStats;
           var homeTeamStats = response.gameboxscore.homeTeam.homeTeamStats;
-          // console.log(awayTeamStats);
-
 
   ///// COULD ALSO BUILD second small table to display player injuries for selected team //////
   ///// THe following stats avail: Name, Number, Position, Injury //////
   ///// Could have second page with table of active players //////
   ///// The followig stats avail: Team, Name, Number, Position, Height, Weight, Age, Rookie? ////
-
 
           console.log("-----------------------------");
           console.log("------ HOME TEAM STATS ------"); 
@@ -960,9 +959,9 @@ function initMap() {
 } // close initMap function
 
 
-// firebase 
-
-  // Initialize Firebase
+// function to write data to firebase database
+function fireBase(gameEntry) { 
+    // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
     authDomain: "sportsmap-1513476316039.firebaseapp.com",
@@ -972,5 +971,100 @@ function initMap() {
     messagingSenderId: "505062349594"
   };
   firebase.initializeApp(config);
+  // Create a variable to reference the database.
+  var database = firebase.database();
+  console.log(database);
+  //create var that holds the object returned from API call
+  // var gameEntry = param3;
+  console.log(gameEntry);
+    for (var i = 0; i < gameEntry.length; i++) {
+      // returns gameEntries which contain all data for each teams schedule
+      var teamStats = gameEntry[i];
+      console.log(teamStats);
+      // created variables to hold team names and location of game, etc.
+      var awayTeam = teamStats.awayTeam.Name;
+      var stadium = teamStats.location;
+      var homeTeam = teamStats.homeTeam.Name;
+      var weekNum = teamStats.week;
+      var awayCity = teamStats.awayTeam.City;
+      var homeCity = teamStats.homeTeam.City;
+      var gameTime = teamStats.time;
+      var gameDate = teamStats.date;
+      var gameID = teamStats.id;
+      // create object to hold team/game info
+      var game = {
+        weekNumber : weekNum,
+        gameID : gameID,
+        gmDate : gameDate,
+        gmTime : gameTime,
+        field : stadium,
+        aTeam : awayTeam,
+        aCity : awayCity,
+        hTeam : homeTeam,
+        hCity : homeCity 
+      };
+      console.log(game);
+      // Uploads data to the database
+      database.ref().push(game);
+    };  // close loop
 
+
+  // Firebase listener -- Create Firebase event for querying db and adding train to the DOM (html) when a user adds an entry on front end
+  database.ref().orderByChild("dateAdded").on("child_added", function(snapshot) {
+    // storing the snapshot.val() in a variable for convenience
+    var sv = snapshot.val();
+
+    // // Console.logging user data
+    // console.log(sv.name);
+    // console.log(sv.destination);
+    // console.log(sv.arrival);
+    // console.log(sv.frequency);
+
+    // console.log(moment());
+
+    // variable holding train frequency
+    var trainFreq = sv.frequency;
+    // variable holding time of first train
+    var firstTrain = sv.arrival;
+
+
+    // // First Time (pushed back 1 year to make sure it comes before current time)
+    // var firstTimeConverted = moment(firstTrain, "hh:mm").subtract(1, "years");
+    // // console.log(firstTimeConverted);
+    // console.log("-----Next Train-----");
+    // // Current Time
+    // var currentTime = moment();
+    // console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+    // // Difference between the times
+    // var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    // // console.log("DIFFERENCE IN TIME: " + diffTime);
+
+    // // Time apart (remainder)
+    // var tRemainder = diffTime % trainFreq;
+    // // console.log(tRemainder);
+
+    // // Minute Until Train
+    // var tMinutesTillTrain = trainFreq - tRemainder;
+    // console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+    // // Next Train
+    // var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    // console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+
+    // // display train times in DOM to reflect user additions and current times
+    
+    // $("#tableBody").append("<tr><td>" + sv.name + "</td><td>" + sv.destination + "</td><td>" + sv.frequency + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
+    
+    // $("#name-display").text(sv.name);
+    // $("#role-display").text(sv.destination);
+    // $("#start-date-display").text(sv.arrival);
+    // $("#monthly-rate-display").text(sv.frequency);
+
+    // Logs the errors in console
+  }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+  });
+}; // close firebase
 

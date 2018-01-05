@@ -473,9 +473,10 @@ function initMap() {
             // test jQuery push to DOM
             $("#teamName").html( homeTeam + " Team Stats (2017-2018 season)");
             $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
-            // call second API URL for score data
-            // callAPI2(gameID);
+
           } // close for loop
+            // call second API URL for score data
+          callAPI2(gameID);
           fireBase(gameEntry);
         } // close API response function
       }) // close AJAX call
@@ -972,13 +973,27 @@ function initMap() {
 
 
 // firebase 
-function fireBase(param3) { 
+function fireBase(gameEntry) { 
+    // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
+    authDomain: "sportsmap-1513476316039.firebaseapp.com",
+    databaseURL: "https://sportsmap-1513476316039.firebaseio.com",
+    projectId: "sportsmap-1513476316039",
+    storageBucket: "sportsmap-1513476316039.appspot.com",
+    messagingSenderId: "505062349594"
+  };
+  firebase.initializeApp(config);
+  // Create a variable to reference the database.
+  var database = firebase.database();
+  console.log(database);
   //create var that holds the object returned from API call
-  var gameEntry = param3;
+  // var gameEntry = param3;
   console.log(gameEntry);
     for (var i = 0; i < gameEntry.length; i++) {
       // returns gameEntries which contain all data for each teams schedule
       var teamStats = gameEntry[i];
+      console.log(teamStats);
       // created variables to hold team names and location of game, etc.
       var awayTeam = teamStats.awayTeam.Name;
       var stadium = teamStats.location;
@@ -989,39 +1004,22 @@ function fireBase(param3) {
       var gameTime = teamStats.time;
       var gameDate = teamStats.date;
       var gameID = teamStats.id;
-      console.log("test game id" + gameID);
-    };
 
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
-    authDomain: "sportsmap-1513476316039.firebaseapp.com",
-    databaseURL: "https://sportsmap-1513476316039.firebaseio.com",
-    projectId: "sportsmap-1513476316039",
-    storageBucket: "sportsmap-1513476316039.appspot.com",
-    messagingSenderId: "505062349594"
-  };
-  firebase.initializeApp(config);
-
-  // Create a variable to reference the database.
-  var database = firebase.database();
-  console.log(database);
-
-  // Grabbed values from text boxes (user input)
-  var tName = $("#name-input").val().trim();
-  var tDestination = $("#destination-input").val().trim();
-  var tTime = $("#train-time-input").val().trim();
-  var tFrequency = $("#frequency-input").val().trim();
-  
-  // Creates local "temporary" object for holding train data
-  var newTrain = {
-    name: tName,
-    destination: tDestination,
-    arrival: tTime,
-    frequency: tFrequency,
-  };
-  // Uploads train data to the database
-  database.ref().push(newTrain);
+      var game = {
+        weekNumber : weekNum,
+        gameID : gameID,
+        gmDate : gameDate,
+        gmTime : gameTime,
+        field : stadium,
+        aTeam : awayTeam,
+        aCity : awayCity,
+        hTeam : homeTeam,
+        hCity : homeCity 
+      };
+      console.log(game);
+      // Uploads data to the database
+      database.ref().push(game);
+    };  // close loop
 
 
   // Firebase listener -- Create Firebase event for querying db and adding train to the DOM (html) when a user adds an entry on front end
@@ -1043,39 +1041,39 @@ function fireBase(param3) {
     var firstTrain = sv.arrival;
 
 
-    // First Time (pushed back 1 year to make sure it comes before current time)
-    var firstTimeConverted = moment(firstTrain, "hh:mm").subtract(1, "years");
-    // console.log(firstTimeConverted);
-    console.log("-----Next Train-----");
-    // Current Time
-    var currentTime = moment();
-    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+    // // First Time (pushed back 1 year to make sure it comes before current time)
+    // var firstTimeConverted = moment(firstTrain, "hh:mm").subtract(1, "years");
+    // // console.log(firstTimeConverted);
+    // console.log("-----Next Train-----");
+    // // Current Time
+    // var currentTime = moment();
+    // console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-    // Difference between the times
-    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-    // console.log("DIFFERENCE IN TIME: " + diffTime);
+    // // Difference between the times
+    // var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+    // // console.log("DIFFERENCE IN TIME: " + diffTime);
 
-    // Time apart (remainder)
-    var tRemainder = diffTime % trainFreq;
-    // console.log(tRemainder);
+    // // Time apart (remainder)
+    // var tRemainder = diffTime % trainFreq;
+    // // console.log(tRemainder);
 
-    // Minute Until Train
-    var tMinutesTillTrain = trainFreq - tRemainder;
-    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+    // // Minute Until Train
+    // var tMinutesTillTrain = trainFreq - tRemainder;
+    // console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
-    // Next Train
-    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+    // // Next Train
+    // var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    // console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
 
-    // display train times in DOM to reflect user additions and current times
+    // // display train times in DOM to reflect user additions and current times
     
-    $("#tableBody").append("<tr><td>" + sv.name + "</td><td>" + sv.destination + "</td><td>" + sv.frequency + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
+    // $("#tableBody").append("<tr><td>" + sv.name + "</td><td>" + sv.destination + "</td><td>" + sv.frequency + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
     
-    $("#name-display").text(sv.name);
-    $("#role-display").text(sv.destination);
-    $("#start-date-display").text(sv.arrival);
-    $("#monthly-rate-display").text(sv.frequency);
+    // $("#name-display").text(sv.name);
+    // $("#role-display").text(sv.destination);
+    // $("#start-date-display").text(sv.arrival);
+    // $("#monthly-rate-display").text(sv.frequency);
 
     // Logs the errors in console
   }, function(errorObject) {

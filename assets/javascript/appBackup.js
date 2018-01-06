@@ -34,9 +34,201 @@ function initMap() {
   var KCC = {lat: 39.048889, lng: -94.483889};
   var DEN = {lat: 39.743889, lng: -105.02};
   var OAK = {lat: 37.751667, lng: -122.200556};
-
+    var icon1 = {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/San_Francisco_49ers_logo.svg/800px-San_Francisco_49ers_logo.svg.png", // url
+    scaledSize: new google.maps.Size(40, 25), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon2 = {
+    url: "./assets/images/jets.png", // url
+    scaledSize: new google.maps.Size(30, 30), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon3 = {
+    url: "./assets/images/vikings.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon4 = {
+    url: "./assets/images/cowboys.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon5 = {
+    url: "./assets/images/packers.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon6 = {
+    url: "./assets/images/lions.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon7 = {
+    url: "./assets/images/bears.png", // url
+    scaledSize: new google.maps.Size(40, 25), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon8 = {
+    url: "./assets/images/colts.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon9 = {
+    url: "./assets/images/texans.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon10 = {
+    url: "./assets/images/redskins.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon11 = {
+    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/New_York_Giants_logo.svg/1000px-New_York_Giants_logo.svg.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon12 = {
+    url: "./assets/images/steelers.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon13 = {
+    url: "./assets/images/browns.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon14 = {
+    url: "./assets/images/falcons.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon15 = {
+    url: "./assets/images/eagles.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon16 = {
+    url: "./assets/images/patriots.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon17 = {
+    url: "./assets/images/panthers.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon18 = {
+    url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Buffalo_Bills_logo.svg/1024px-Buffalo_Bills_logo.svg.png", // url
+    scaledSize: new google.maps.Size(40, 25), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon19 = {
+    url: "./assets/images/dolphins.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon20 = {
+    url: "./assets/images/saints.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon21 = {
+    url: "./assets/images/buccaneers.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon22 = {
+    url: "./assets/images/jaguars.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon23 = {
+    url: "./assets/images/titans.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon24 = {
+    url: "./assets/images/bengals.png", // url
+    scaledSize: new google.maps.Size(30, 30), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon25 = {
+    url: "./assets/images/ravens.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon26 = {
+    url: "./assets/images/cardinals.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon27 = {
+    url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8e/Seattle_Seahawks_logo.svg/1280px-Seattle_Seahawks_logo.svg.png", // url
+    scaledSize: new google.maps.Size(40, 20), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon28 = {
+    url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/NFL_Rams_logo.svg/1024px-NFL_Rams_logo.svg.png", // url
+    scaledSize: new google.maps.Size(40, 25), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon29 = {
+    url: "./assets/images/chargers.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon30 = {
+    url: "./assets/images/chiefs.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon31 = {
+    url: "./assets/images/broncos.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+    var icon32 = {
+    url: "./assets/images/raiders.png", // url
+    scaledSize: new google.maps.Size(40, 40), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+    };
+  
   // create var for middle of map (these are coordinates for middle of U.S.)
-  var middleLoc = {lat: 39.8283, lng: -98.5795};
+  var middleLoc = {lat: 36.2283, lng: -101.5795};
   // create var for map
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
@@ -45,131 +237,163 @@ function initMap() {
   // create variables for map markers for all 32 teams
   var marker1 = new google.maps.Marker({
     position: SF,
-    map: map
+    map: map,
+    icon: icon1
   });
   var marker2 = new google.maps.Marker({
     position: NYJ,
-    map: map
+    map: map,
+    icon: icon2
   });
   var marker3 = new google.maps.Marker({
     position: MSP,
-    map: map
+    map: map,
+    icon: icon3
   });
   var marker4 = new google.maps.Marker({
     position: DAL,
-    map: map
+    map: map,
+    icon: icon4
   });
   var marker5 = new google.maps.Marker({
     position: GBP,
-    map: map
+    map: map,
+    icon: icon5
   });
   var marker6 = new google.maps.Marker({
     position: DET,
-    map: map
+    map: map,
+    icon: icon6
   });
   var marker7 = new google.maps.Marker({
     position: CHI,
-    map: map
+    map: map,
+    icon: icon7
   });
   var marker8 = new google.maps.Marker({
     position: IND,
-    map: map
+    map: map,
+    icon: icon8
   });
   var marker9 = new google.maps.Marker({
     position: HOU,
-    map: map
+    map: map,
+    icon: icon9
   });
   var marker10 = new google.maps.Marker({
     position: WSH,
-    map: map
+    map: map,
+    icon: icon10
   });
   var marker11 = new google.maps.Marker({
     position: NYG,
-    map: map
+    map: map,
+    icon: icon11
   });
   var marker12 = new google.maps.Marker({
     position: PBS,
-    map: map
+    map: map,
+    icon: icon12
   });
   var marker13 = new google.maps.Marker({
     position: CLB,
-    map: map
+    map: map,
+    icon: icon13
   });
   var marker14 = new google.maps.Marker({
     position: ATL,
-    map: map
+    map: map,
+    icon: icon14
   });
   var marker15 = new google.maps.Marker({
     position: PHI,
-    map: map
+    map: map,
+    icon: icon15
   });
   var marker16 = new google.maps.Marker({
     position: NEP,
-    map: map
+    map: map,
+    icon: icon16
   });
   var marker17 = new google.maps.Marker({
     position: CAR,
-    map: map
+    map: map,
+    icon: icon17
   });
   var marker18 = new google.maps.Marker({
     position: BFB,
-    map: map
+    map: map,
+    icon: icon18
   });
   var marker19 = new google.maps.Marker({
     position: MIA,
-    map: map
+    map: map,
+    icon: icon19
   });
   var marker20 = new google.maps.Marker({
     position: NOS,
-    map: map
+    map: map,
+    icon: icon20
   });
   var marker21 = new google.maps.Marker({
     position: TPB,
-    map: map
+    map: map,
+    icon: icon21
   });
   var marker22 = new google.maps.Marker({
     position: JKS,
-    map: map
+    map: map,
+    icon: icon22
   });
   var marker23 = new google.maps.Marker({
     position: TEN,
-    map: map
+    map: map,
+    icon: icon23
   });
   var marker24 = new google.maps.Marker({
     position: CIN,
-    map: map
+    map: map,
+    icon: icon24
   });
   var marker25 = new google.maps.Marker({
     position: BAL,
-    map: map
+    map: map,
+    icon: icon25
   });
   var marker26 = new google.maps.Marker({
     position: ARZ,
-    map: map
+    map: map,
+    icon: icon26
   });
   var marker27 = new google.maps.Marker({
     position: SEA,
-    map: map
+    map: map,
+    icon: icon27
   });
   var marker28 = new google.maps.Marker({
     position: LAR,
-    map: map
+    map: map,
+    icon: icon28
   });
   var marker29 = new google.maps.Marker({
     position: LAC,
-    map: map
+    map: map,
+    icon: icon29
   });
   var marker30 = new google.maps.Marker({
     position: KCC,
-    map: map
+    map: map,
+    icon: icon30
   });
   var marker31 = new google.maps.Marker({
     position: DEN,
-    map: map
+    map: map,
+    icon: icon31
   });
   var marker32 = new google.maps.Marker({
     position: OAK,
-    map: map
+    map: map,
+    icon: icon32
   });
 
 // "teams" Array of objects (each team) with title (city), title2 (name), marker#, etc
@@ -409,7 +633,7 @@ function initMap() {
       callAPI(teamParam);
     } // close userSearch function
 
-    // function which takes parameter from click event and calls API via AJAX
+    // function which takes parameter from click event and calls API to get basic team info and id
     function callAPI(teamParam) {
       // pass value of teamParam from userSearch or marker clicks into this function for completing URL req
       console.log(teamParam);
@@ -420,7 +644,6 @@ function initMap() {
       // var teamParam = "detroit-lions";
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + teamParam;
   
-      
       // AJAX call to mysportsfeed.com API - multiple sports and good documentation
       $.ajax({
         type: "GET",
@@ -434,10 +657,10 @@ function initMap() {
         success: function (response){
           // console.log(response);
           // console.log(response.fullgameschedule.gameentry[0]);
-
-          // for loop to loop through all the games 
+          // var (obj) to store game objects with game info
           var gameEntry = response.fullgameschedule.gameentry;
           // console.log(gameEntry.length);
+          // loop through all the games 
           for (var i = 0; i < gameEntry.length; i++) {
             // returns gameEntries which contain all data for each teams schedule
             var teamStats = response.fullgameschedule.gameentry[i];
@@ -468,18 +691,23 @@ function initMap() {
             console.log("Game Day: " + gameDate);
             console.log("Game Time: " + gameTime);
 
-            // test jQuery push to DOM
-            $("#teamName").html( homeTeam + " Team Stats (2017-2018 season)");
-            $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
-            // call second API URL for score data
-            callAPI2(gameID);
+            // $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
           } // close for loop
-        } // close API response function
+            // test jQuery push to DOM
+            // $("#teamName").html( homeTeam + " Team Schedule (2017-2018)");
+
+            $("#firstRow").html("<table><thead><tr><th>" + "Week" + "</th><th>" + "Date" + "</th><th>" + "Time" + "</th><th>" + "Stadium" + "</th><th>" + "Home City" + "</th><th>" + "Home Team" + "</th><th>" + "Away City" + "</th><th>" + "Away Team" + "</th></tr></thead></table>");
+
+          // call second API URL for score data (passing gameID parameter)
+          callAPI2(gameID);
+          // call function to write to firebase database
+          fireBase(gameEntry);
+        } // close first API response function
       }) // close AJAX call
 
-    // This code for nested AJAX call to use gameID var as required API URL parameter
+    // function calls second API url to get all team stats for each game
+    // passing parameter "gameID" var -- its a required parameter for the API URL on line 483
     function callAPI2(gameID) {
-      // var gameID = param2;
       var queryURL3 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID;
       var queryURL4 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID + "&teamstats=Att,1stDownsTotal,3rdDownsPct,4thDownsPct,Penalties,PenaltyYards";
       $.ajax({
@@ -493,22 +721,19 @@ function initMap() {
         // when ajax call done then return response
         success: function (response){
           // console.log(response);
-          // var path = response.gameboxscore;
+          var gameBoxScore = response.gameboxscore;
           var awayTeamStats = response.gameboxscore.awayTeam.awayTeamStats;
           var homeTeamStats = response.gameboxscore.homeTeam.homeTeamStats;
-          // console.log(awayTeamStats);
-
 
   ///// COULD ALSO BUILD second small table to display player injuries for selected team //////
   ///// THe following stats avail: Name, Number, Position, Injury //////
   ///// Could have second page with table of active players //////
   ///// The followig stats avail: Team, Name, Number, Position, Height, Weight, Age, Rookie? ////
 
-
-    console.log("-----------------------------");
-    console.log("------ HOME TEAM STATS ------"); 
+          console.log("-----------------------------");
+          console.log("------ HOME TEAM STATS ------"); 
       // down stats and penalties
-      console.log("----- downs and penalties -----");
+          console.log("----- downs and penalties -----");
           // # first downs
           var hFirstDownsTotal = Object.values(homeTeamStats.FirstDownsTotal);
           var homeFirstDownsTotal = hFirstDownsTotal[2];
@@ -530,7 +755,7 @@ function initMap() {
           var homePenaltyYds = hPenaltyYds[2];
           console.log("Penalties Yards: " + homePenaltyYds);                    
       // rushing stats
-        console.log("----- Rushing Stats -----");
+          console.log("----- Rushing Stats -----");
           // attempts
           var hRushAttempts = Object.values(homeTeamStats.RushAttempts);
           var homeRushAttempts = hRushAttempts[2];
@@ -548,7 +773,7 @@ function initMap() {
           var homeRushTD = hRushTD[2];
           console.log("Rush TDs: " + homeRushTD);             
       // passing stats
-        console.log("----- Passing Stats -----");
+          console.log("----- Passing Stats -----");
           // attempts
           var hPassAttempts = Object.values(homeTeamStats.PassAttempts);
           // console.log(hPassAttempts);
@@ -571,7 +796,7 @@ function initMap() {
           var homePassTD = hPassTD[2];
           console.log("Pass TDs: " + homePassTD);              
       // total offense stats
-        console.log("------ Home Team Total Offense ------");
+          console.log("------ Home Team Total Offense ------");
           // Total Offense Yards
           var hOffenseYds = Object.values(homeTeamStats.OffenseYds);
           var homeOffenseYds = hOffenseYds[2];
@@ -588,12 +813,10 @@ function initMap() {
           var hQBRating = Object.values(homeTeamStats.QBRating);
           var homeQBRating = hQBRating[2];
           console.log("QB Rating: " + homeQBRating);          
-
-        
-        console.log("-----------------------------");
-        console.log("------ AWAY TEAM STATS ------"); 
+          console.log("-----------------------------");
+          console.log("------ AWAY TEAM STATS ------"); 
       // down stats and penalties
-      console.log("----- downs and penalties -----");
+          console.log("----- downs and penalties -----");
           // # first downs
           var aFirstDownsTotal = Object.values(awayTeamStats.FirstDownsTotal);
           var awayFirstDownsTotal = aFirstDownsTotal[2];
@@ -615,7 +838,7 @@ function initMap() {
           var awayPenaltyYds = aPenaltyYds[2];
           console.log("Penalties Yards: " + awayPenaltyYds);                    
       // rushing stats
-        console.log("----- Rushing Stats -----");
+          console.log("----- Rushing Stats -----");
           // attempts
           var aRushAttempts = Object.values(awayTeamStats.RushAttempts);
           var awayRushAttempts = aRushAttempts[2];
@@ -632,9 +855,8 @@ function initMap() {
           var aRushTD = Object.values(awayTeamStats.RushTD);
           var awayRushTD = aRushTD[2];
           console.log("Rush TDs: " + awayRushTD);    
-
       // passing stats
-        console.log("----- Passing Stats -----");
+          console.log("----- Passing Stats -----");
           // attempts
           var aPassAttempts = Object.values(awayTeamStats.PassAttempts);
           var awayPassAttempts = aPassAttempts[2];
@@ -656,7 +878,7 @@ function initMap() {
           var awayPassTD = aPassTD[2];
           console.log("Pass TDs: " + awayPassTD);              
       // total offense stats
-        console.log("------ Away Team Total Offense ------");
+          console.log("------ Away Team Total Offense ------");
           // Total Offense Yards
           var aOffenseYds = Object.values(awayTeamStats.OffenseYds);
           var awayOffenseYds = aOffenseYds[2];
@@ -673,94 +895,21 @@ function initMap() {
           var aQBRating = Object.values(awayTeamStats.QBRating);
           var awayQBRating = aQBRating[2];
           console.log("QB Rating: " + awayQBRating);    
-
-
       // total score for both teams
-        console.log("------ GAME SCORE ------")
-            // home team score
-            var homeScore = response.gameboxscore.quarterSummary.quarterTotals.homeScore;
-            console.log("Home Team: " + homeScore);  
-          //   away team score 
-            var awayScore = response.gameboxscore.quarterSummary.quarterTotals.awayScore;
-            console.log("Away Team: " + awayScore);         
-            console.log("-----------------------");
-            console.log("-----------------------");
+          console.log("------ GAME SCORE ------")
+          // home team score
+          var homeScore = response.gameboxscore.quarterSummary.quarterTotals.homeScore;
+          console.log("Home Team: " + homeScore);  
+          // away team score 
+          var awayScore = response.gameboxscore.quarterSummary.quarterTotals.awayScore;
+          console.log("Away Team: " + awayScore);         
+          console.log("-----------------------");
+          console.log("-----------------------");
 
+          // call function to write to firebase database
         } // close response function
       }) // close second AJAX call
     } //close callAPI2 function
-
-      // BACKUP for SECOND AJAX CALL (callAPI2 function) in case nested function doesnt work out
-      // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
-     //  var date = "20171225";
-     //  var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
-     //  // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
-
-     // $.ajax({
-     //    type: "GET",
-     //    url: queryURL2,
-     //    dataType: 'json',
-     //    async: false,
-     //    headers: {
-     //      "Authorization": "Basic " + btoa(username + ":" + password)
-     //    },
-     //    // when ajax call done then return response
-     //    success: function (response){
-     //      console.log(response);
-     //      // console.log(response.scoreboard.gameScore[0]);
-
-     //      // for loop to loop through all the games 
-     //      var gameEntry = response.scoreboard.gameScore;
-     //      // console.log(gameEntry.length);
-     //      for (var i = 0; i < gameEntry.length; i++) {
-     //        // returns gameEntries which contain all data for each teams schedule
-     //        var teamStats2 = response.scoreboard.gameScore[i];
-     //        // created variables to hold game id, game status and game scores
-     //        var gameID = teamStats2.game.ID;
-     //        var awayTmScore = teamStats2.awayScore;
-     //        var homeTmScore = teamStats2.homeScore;
-     //        var gameIsOver = teamStats2.isCompleted;
-     //        var gameInProgress = teamStats2.isInProgress;
-     //        var gameIsUnplayed = teamStats2.isUnplayed; 
-     //        // other data available in this request
-     //        var awayTeam = teamStats2.game.awayTeam.Name;
-     //        var stadium = teamStats2.game.location;
-     //        var homeTeam = teamStats2.game.homeTeam.Name;
-     //        var weekNum = teamStats2.game.week;
-     //        var awayCity = teamStats2.game.awayTeam.City;
-     //        var homeCity = teamStats2.game.homeTeam.City;
-     //        var gameTime = teamStats2.game.time;
-     //        var gameDate = teamStats2.game.date;
-
-     //        // console.log("-----------------------");
-     //        console.log("Game ID: " + gameID);
-     //        // console.log("Week: " + weekNum);
-     //        // console.log("-----------------------");
-     //        // console.log("--- Home Team ---");
-     //        // console.log("City: " + homeCity);
-     //        // console.log("Home Team: " + homeTeam);
-     //        // console.log("--- Visiting Team ---");
-     //        // console.log("City: " + awayCity);
-     //        // console.log("Away Team: " + awayTeam);
-     //        // console.log("--- Other Info ---");
-     //        // console.log("Stadium: " + stadium);
-     //        // console.log("Game Day: " + gameDate);
-     //        // console.log("Game Time: " + gameTime);
-     //        console.log("--- Game Results ---");
-     //        console.log("Game Complete? " + gameIsOver + " | Game In Progress? " + gameInProgress);           
-     //        console.log(homeTeam + ": " + homeTmScore);
-     //        console.log(awayTeam + ": " + awayTmScore);
-     //        console.log("-----------------------");
-     //        console.log("---End of Results---");
-
-     //        // push game status and scores to DOM
-     //        $("#homeTmScore").html(homeTeam + ": " + homeTmScore + " ");
-     //        $("#awayTmScore").html(awayTeam + ": " + awayTmScore + " ");
-
-     //      } // close for loop
-     //    } // close API response function
-     //  }) // close AJAX call
-
 
       // clear user search input form
       $("#search").val("");
@@ -968,9 +1117,11 @@ function initMap() {
 } // close initMap function
 
 
-// firebase 
+// function to write data to firebase database
+function fireBase(gameEntry) { 
+    // Initialize Firebase
+    $("#tableBody").html("");
 
-  // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
     authDomain: "sportsmap-1513476316039.firebaseapp.com",
@@ -979,6 +1130,94 @@ function initMap() {
     storageBucket: "sportsmap-1513476316039.appspot.com",
     messagingSenderId: "505062349594"
   };
-  firebase.initializeApp(config);
+  if (!firebase.apps.length) {
+      var app = firebase.initializeApp(config);
+  }
 
+  // Create a variable to reference the database.
+  var database = firebase.database();
+  console.log(database);
+  //create var that holds the object returned from API call
+  // var gameEntry = param3;
+  console.log(gameEntry);
+      app.delete();
+      // Uploads data to the database
+    for (var i = 0; i < gameEntry.length; i++) {
+      // returns gameEntries which contain all data for each teams schedule
+      var teamStats = gameEntry[i];
+      // console.log(teamStats);
+      // created variables to hold team names and location of game, etc.
+      var awayTeam = teamStats.awayTeam.Name;
+      var stadium = teamStats.location;
+      var homeTeam = teamStats.homeTeam.Name;
+      var weekNum = teamStats.week;
+      var awayCity = teamStats.awayTeam.City;
+      var homeCity = teamStats.homeTeam.City;
+      var gameTime = teamStats.time;
+      var gameDate = teamStats.date;
+      var gameID = teamStats.id;
+      // create object to hold team/game info
+      var game = {
+        weekNumber : weekNum,
+        gameID : gameID,
+        gmDate : gameDate,
+        gmTime : gameTime,
+        field : stadium,
+        aTeam : awayTeam,
+        aCity : awayCity,
+        hTeam : homeTeam,
+        hCity : homeCity 
+      };
+
+      database.ref().push(game);
+    };  // close loop
+      // console.log(game);
+
+
+  // Firebase listener -- Create Firebase event for querying db and adding team data / stats to the DOM (html) when a user clicks or enters team name
+  database.ref().orderByChild("dateAdded").limitToLast(16).on("child_added", function(snapshot) {
+    // storing the snapshot.val (similar to ajax response) - object returned from db query
+    var sv = snapshot.val();
+    // console.log(sv);
+
+
+    // variables for holding data from db query
+    var week = sv.weekNumber;
+    var id = sv.gameID;
+    var date = sv.gmDate;
+    var time = sv.gmTime;
+    var stadium = sv.field;
+    var homeCityDb = sv.hCity;
+    var homeTeamDb = sv.hTeam;
+    // var homeTeamScore =;
+    var awayCityDb = sv.aCity;
+    var awayTeamDb = sv.aTeam;
+    // var awayTeamScore =;
+
+    // Console.logging data returned from db query
+    // console.log(week);
+    // console.log(id);
+    // console.log(date);
+    // console.log(time);
+    // console.log(stadium);
+    // console.log(homeCityDb);
+    // console.log(homeTeamDb);
+    // console.log(awayCityDb);
+    // console.log(awayTeamDb);
+
+    // // display sports info/stats in DOM based on user actions
+    // $("#tableBody").empty();
+
+    $("#tableBody").append("<tr><td>" + week + "</td><td>" + date + "</td><td>" + time + "</td><td>" + stadium + "</td><td>" + homeCityDb + "</td><td>" + homeTeamDb + "</td><td>" + awayCityDb + "</td><td>" + awayTeamDb + "</td></tr>");
+    
+    // $("#name-display").text(sv.name);
+    // $("#role-display").text(sv.destination);
+    // $("#start-date-display").text(sv.arrival);
+    // $("#monthly-rate-display").text(sv.frequency);
+    
+    // Logs the errors in console
+  }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+  });
+}; // close firebase
 

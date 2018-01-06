@@ -409,7 +409,7 @@ function initMap() {
       callAPI(teamParam);
     } // close userSearch function
 
-    // function which takes parameter from click event and calls API via AJAX
+    // function which takes parameter from click event and calls API to get basic team info and id
     function callAPI(teamParam) {
       // pass value of teamParam from userSearch or marker clicks into this function for completing URL req
       console.log(teamParam);
@@ -420,7 +420,6 @@ function initMap() {
       // var teamParam = "detroit-lions";
       var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/full_game_schedule.json?team=" + teamParam;
   
-      
       // AJAX call to mysportsfeed.com API - multiple sports and good documentation
       $.ajax({
         type: "GET",
@@ -434,10 +433,10 @@ function initMap() {
         success: function (response){
           // console.log(response);
           // console.log(response.fullgameschedule.gameentry[0]);
-
-          // for loop to loop through all the games 
+          // var (obj) to store game objects with game info
           var gameEntry = response.fullgameschedule.gameentry;
           // console.log(gameEntry.length);
+          // loop through all the games 
           for (var i = 0; i < gameEntry.length; i++) {
             // returns gameEntries which contain all data for each teams schedule
             var teamStats = response.fullgameschedule.gameentry[i];
@@ -451,35 +450,74 @@ function initMap() {
             var gameTime = teamStats.time;
             var gameDate = teamStats.date;
             var gameID = teamStats.id;
-            console.log("-----------------------");
-            console.log("------GAME DETAILS-----");
-            console.log("-----------------------");
-            console.log("Week: " + weekNum);
-            console.log("Game ID: " + gameID);
-            console.log("-----------------------");
-            console.log("--- Home Team ---");
-            console.log("City: " + homeCity);
-            console.log("Home Team: " + homeTeam);
-            console.log("--- Visiting Team ---");
-            console.log("City: " + awayCity);
-            console.log("Away Team: " + awayTeam);
-            console.log("--- Other Info ---");
-            console.log("Stadium: " + stadium);
-            console.log("Game Day: " + gameDate);
-            console.log("Game Time: " + gameTime);
-
+            // console.log("-----------------------");
+            // console.log("------GAME DETAILS-----");
+            // console.log("-----------------------");
+            // console.log("Week: " + weekNum);
+            // console.log("Game ID: " + gameID);
+            // console.log("-----------------------");
+            // console.log("--- Home Team ---");
+            // console.log("City: " + homeCity);
+            // console.log("Home Team: " + homeTeam);
+            // console.log("--- Visiting Team ---");
+            // console.log("City: " + awayCity);
+            // console.log("Away Team: " + awayTeam);
+            // console.log("--- Other Info ---");
+            // console.log("Stadium: " + stadium);
+            // console.log("Game Day: " + gameDate);
+            // console.log("Game Time: " + gameTime);
             // test jQuery push to DOM
-            $("#teamName").html( homeTeam + " Team Stats (2017-2018 season)");
-            $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
-            // call second API URL for score data
-            callAPI2(gameID);
+            $("#teamName").html( homeTeam + " Team Schedule (2017-2018)");
+            // $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
           } // close for loop
-        } // close API response function
+          callAPI2(gameEntry);
+          // call function to write to firebase database
+          // fireBase(gameEntry);
+        } // close first API response function
       }) // close AJAX call
 
-    // This code for nested AJAX call to use gameID var as required API URL parameter
-    function callAPI2(gameID) {
-      // var gameID = param2;
+    // function calls second API url to get all team stats for each game
+    // passing parameter "gameID" var -- its a required parameter for the API URL on line 483
+    function callAPI2(gameEntry) {
+          // teamInfo = gameEntry;
+          console.log(gameEntry);
+          // gameID = teamInfo.id;
+          // console.log(gameID);
+
+      for (var i = 0; i < gameEntry.length; i++) {
+        // returns gameEntries which contain all data for each teams schedule
+        var teamStats = gameEntry[i];
+        // created variables to hold team names and location of game, etc.
+        var awayTeam = teamStats.awayTeam.Name;
+        var stadium = teamStats.location;
+        var homeTeam = teamStats.homeTeam.Name;
+        var weekNum = teamStats.week;
+        var awayCity = teamStats.awayTeam.City;
+        var homeCity = teamStats.homeTeam.City;
+        var gameTime = teamStats.time;
+        var gameDate = teamStats.date;
+        var gameID = teamStats.id;
+        console.log("-----------------------");
+        console.log("------GAME DETAILS-----");
+        console.log("-----------------------");
+        console.log("Week: " + weekNum);
+        console.log("Game ID: " + gameID);
+        console.log("-----------------------");
+        console.log("--- Home Team ---");
+        console.log("City: " + homeCity);
+        console.log("Home Team: " + homeTeam);
+        console.log("--- Visiting Team ---");
+        console.log("City: " + awayCity);
+        console.log("Away Team: " + awayTeam);
+        console.log("--- Other Info ---");
+        console.log("Stadium: " + stadium);
+        console.log("Game Day: " + gameDate);
+        console.log("Game Time: " + gameTime);
+        // test jQuery push to DOM
+        $("#teamName").html( homeTeam + " Team Schedule (2017-2018)");
+        // $("#stats").append("WEEK: " + weekNum + " -- Home Team: " + homeTeam + "; Away Team: " + awayTeam + "; Stadium: " + stadium +" -- ");
+      } // close for loop
+
       var queryURL3 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID;
       var queryURL4 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/game_boxscore.json?gameid=" + gameID + "&teamstats=Att,1stDownsTotal,3rdDownsPct,4thDownsPct,Penalties,PenaltyYards";
       $.ajax({
@@ -493,10 +531,9 @@ function initMap() {
         // when ajax call done then return response
         success: function (response){
           // console.log(response);
-          // var path = response.gameboxscore;
+          var gameBoxScore = response.gameboxscore;
           var awayTeamStats = response.gameboxscore.awayTeam.awayTeamStats;
           var homeTeamStats = response.gameboxscore.homeTeam.homeTeamStats;
-          // console.log(awayTeamStats);
 
 
   ///// COULD ALSO BUILD second small table to display player injuries for selected team //////
@@ -504,11 +541,10 @@ function initMap() {
   ///// Could have second page with table of active players //////
   ///// The followig stats avail: Team, Name, Number, Position, Height, Weight, Age, Rookie? ////
 
-
-    console.log("-----------------------------");
-    console.log("------ HOME TEAM STATS ------"); 
+          console.log("-----------------------------");
+          console.log("------ HOME TEAM STATS ------"); 
       // down stats and penalties
-      console.log("----- downs and penalties -----");
+          console.log("----- downs and penalties -----");
           // # first downs
           var hFirstDownsTotal = Object.values(homeTeamStats.FirstDownsTotal);
           var homeFirstDownsTotal = hFirstDownsTotal[2];
@@ -530,7 +566,7 @@ function initMap() {
           var homePenaltyYds = hPenaltyYds[2];
           console.log("Penalties Yards: " + homePenaltyYds);                    
       // rushing stats
-        console.log("----- Rushing Stats -----");
+          console.log("----- Rushing Stats -----");
           // attempts
           var hRushAttempts = Object.values(homeTeamStats.RushAttempts);
           var homeRushAttempts = hRushAttempts[2];
@@ -548,7 +584,7 @@ function initMap() {
           var homeRushTD = hRushTD[2];
           console.log("Rush TDs: " + homeRushTD);             
       // passing stats
-        console.log("----- Passing Stats -----");
+          console.log("----- Passing Stats -----");
           // attempts
           var hPassAttempts = Object.values(homeTeamStats.PassAttempts);
           // console.log(hPassAttempts);
@@ -571,7 +607,7 @@ function initMap() {
           var homePassTD = hPassTD[2];
           console.log("Pass TDs: " + homePassTD);              
       // total offense stats
-        console.log("------ Home Team Total Offense ------");
+          console.log("------ Home Team Total Offense ------");
           // Total Offense Yards
           var hOffenseYds = Object.values(homeTeamStats.OffenseYds);
           var homeOffenseYds = hOffenseYds[2];
@@ -588,12 +624,10 @@ function initMap() {
           var hQBRating = Object.values(homeTeamStats.QBRating);
           var homeQBRating = hQBRating[2];
           console.log("QB Rating: " + homeQBRating);          
-
-        
-        console.log("-----------------------------");
-        console.log("------ AWAY TEAM STATS ------"); 
+          console.log("-----------------------------");
+          console.log("------ AWAY TEAM STATS ------"); 
       // down stats and penalties
-      console.log("----- downs and penalties -----");
+          console.log("----- downs and penalties -----");
           // # first downs
           var aFirstDownsTotal = Object.values(awayTeamStats.FirstDownsTotal);
           var awayFirstDownsTotal = aFirstDownsTotal[2];
@@ -615,7 +649,7 @@ function initMap() {
           var awayPenaltyYds = aPenaltyYds[2];
           console.log("Penalties Yards: " + awayPenaltyYds);                    
       // rushing stats
-        console.log("----- Rushing Stats -----");
+          console.log("----- Rushing Stats -----");
           // attempts
           var aRushAttempts = Object.values(awayTeamStats.RushAttempts);
           var awayRushAttempts = aRushAttempts[2];
@@ -632,9 +666,8 @@ function initMap() {
           var aRushTD = Object.values(awayTeamStats.RushTD);
           var awayRushTD = aRushTD[2];
           console.log("Rush TDs: " + awayRushTD);    
-
       // passing stats
-        console.log("----- Passing Stats -----");
+          console.log("----- Passing Stats -----");
           // attempts
           var aPassAttempts = Object.values(awayTeamStats.PassAttempts);
           var awayPassAttempts = aPassAttempts[2];
@@ -656,7 +689,7 @@ function initMap() {
           var awayPassTD = aPassTD[2];
           console.log("Pass TDs: " + awayPassTD);              
       // total offense stats
-        console.log("------ Away Team Total Offense ------");
+          console.log("------ Away Team Total Offense ------");
           // Total Offense Yards
           var aOffenseYds = Object.values(awayTeamStats.OffenseYds);
           var awayOffenseYds = aOffenseYds[2];
@@ -673,94 +706,45 @@ function initMap() {
           var aQBRating = Object.values(awayTeamStats.QBRating);
           var awayQBRating = aQBRating[2];
           console.log("QB Rating: " + awayQBRating);    
-
-
       // total score for both teams
-        console.log("------ GAME SCORE ------")
-            // home team score
-            var homeScore = response.gameboxscore.quarterSummary.quarterTotals.homeScore;
-            console.log("Home Team: " + homeScore);  
-          //   away team score 
-            var awayScore = response.gameboxscore.quarterSummary.quarterTotals.awayScore;
-            console.log("Away Team: " + awayScore);         
-            console.log("-----------------------");
-            console.log("-----------------------");
+          console.log("------ GAME SCORE ------")
+          // home team score
+          var homeScore = response.gameboxscore.quarterSummary.quarterTotals.homeScore;
+          console.log("Home Team: " + homeScore);  
+          // away team score 
+          var awayScore = response.gameboxscore.quarterSummary.quarterTotals.awayScore;
+          console.log("Away Team: " + awayScore);         
+          console.log("-----------------------");
+          console.log("-----------------------");
+          var game = {
+            weekNumber : weekNum,
+            gameID : gameID,
+            gmDate : gameDate,
+            gmTime : gameTime,
+            field : stadium,
+            aTeam : awayTeam,
+            aCity : awayCity,
+            hTeam : homeTeam,
+            hCity : homeCity, 
+            scoreHome : homeScore,
+            scoreAway : awayScore,
+            hOffYds : hOffenseYds,
+            aOffYds : aOffenseYds,
+            hTD : hTotalTD,
+            aTD : aTotalTD,
+            hQB : hQBRating,
+            aQB : aQBRating,
+            hInt : homeInt,
+            aInt : awayInt 
+          };
+          console.log(game);
 
+          // call function to write to firebase database
+        fireBase(game);
         } // close response function
+
       }) // close second AJAX call
     } //close callAPI2 function
-
-      // BACKUP for SECOND AJAX CALL (callAPI2 function) in case nested function doesnt work out
-      // this url for game schedule and scores (if played) - https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-regular/scoreboard.json?fordate=20170911
-     //  var date = "20171225";
-     //  var queryURL2 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/2017-2018-regular/scoreboard.json?fordate=" + date + "team=" + teamParam;
-     //  // this url for detailed team stats -- more stats: https://api.mysportsfeeds.com/v1.1/pull/nfl/2016-2017-regular/game_boxscore.json?gameid=20161208-OAK-KC&teamstats=W,L,T,PF,PA&playerstats=Att,Comp,Yds,TD
-
-     // $.ajax({
-     //    type: "GET",
-     //    url: queryURL2,
-     //    dataType: 'json',
-     //    async: false,
-     //    headers: {
-     //      "Authorization": "Basic " + btoa(username + ":" + password)
-     //    },
-     //    // when ajax call done then return response
-     //    success: function (response){
-     //      console.log(response);
-     //      // console.log(response.scoreboard.gameScore[0]);
-
-     //      // for loop to loop through all the games 
-     //      var gameEntry = response.scoreboard.gameScore;
-     //      // console.log(gameEntry.length);
-     //      for (var i = 0; i < gameEntry.length; i++) {
-     //        // returns gameEntries which contain all data for each teams schedule
-     //        var teamStats2 = response.scoreboard.gameScore[i];
-     //        // created variables to hold game id, game status and game scores
-     //        var gameID = teamStats2.game.ID;
-     //        var awayTmScore = teamStats2.awayScore;
-     //        var homeTmScore = teamStats2.homeScore;
-     //        var gameIsOver = teamStats2.isCompleted;
-     //        var gameInProgress = teamStats2.isInProgress;
-     //        var gameIsUnplayed = teamStats2.isUnplayed; 
-     //        // other data available in this request
-     //        var awayTeam = teamStats2.game.awayTeam.Name;
-     //        var stadium = teamStats2.game.location;
-     //        var homeTeam = teamStats2.game.homeTeam.Name;
-     //        var weekNum = teamStats2.game.week;
-     //        var awayCity = teamStats2.game.awayTeam.City;
-     //        var homeCity = teamStats2.game.homeTeam.City;
-     //        var gameTime = teamStats2.game.time;
-     //        var gameDate = teamStats2.game.date;
-
-     //        // console.log("-----------------------");
-     //        console.log("Game ID: " + gameID);
-     //        // console.log("Week: " + weekNum);
-     //        // console.log("-----------------------");
-     //        // console.log("--- Home Team ---");
-     //        // console.log("City: " + homeCity);
-     //        // console.log("Home Team: " + homeTeam);
-     //        // console.log("--- Visiting Team ---");
-     //        // console.log("City: " + awayCity);
-     //        // console.log("Away Team: " + awayTeam);
-     //        // console.log("--- Other Info ---");
-     //        // console.log("Stadium: " + stadium);
-     //        // console.log("Game Day: " + gameDate);
-     //        // console.log("Game Time: " + gameTime);
-     //        console.log("--- Game Results ---");
-     //        console.log("Game Complete? " + gameIsOver + " | Game In Progress? " + gameInProgress);           
-     //        console.log(homeTeam + ": " + homeTmScore);
-     //        console.log(awayTeam + ": " + awayTmScore);
-     //        console.log("-----------------------");
-     //        console.log("---End of Results---");
-
-     //        // push game status and scores to DOM
-     //        $("#homeTmScore").html(homeTeam + ": " + homeTmScore + " ");
-     //        $("#awayTmScore").html(awayTeam + ": " + awayTmScore + " ");
-
-     //      } // close for loop
-     //    } // close API response function
-     //  }) // close AJAX call
-
 
       // clear user search input form
       $("#search").val("");
@@ -968,9 +952,9 @@ function initMap() {
 } // close initMap function
 
 
-// firebase 
-
-  // Initialize Firebase
+// function to write data to firebase database
+function fireBase(game) { 
+    // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
     authDomain: "sportsmap-1513476316039.firebaseapp.com",
@@ -980,5 +964,60 @@ function initMap() {
     messagingSenderId: "505062349594"
   };
   firebase.initializeApp(config);
+  // Create a variable to reference the database.
+  var database = firebase.database();
+  console.log(database);
+  //create var that holds the object returned from API call
+  // var gameEntry = param3;
+  console.log(game);
 
+      // console.log(game);
+      // Uploads data to the database
+      database.ref().push(game);
+
+  // Firebase listener -- Create Firebase event for querying db and adding team data / stats to the DOM (html) when a user clicks or enters team name
+  database.ref().orderByChild("dateAdded").limitToLast(16).on("child_added", function(snapshot) {
+    // storing the snapshot.val (similar to ajax response) - object returned from db query
+    var sv = snapshot.val();
+    console.log(sv);
+
+
+    // variables for holding data from db query
+    var week = sv.weekNumber;
+    var id = sv.gameID;
+    var date = sv.gmDate;
+    var time = sv.gmTime;
+    var stadium = sv.field;
+    var homeCityDb = sv.hCity;
+    var homeTeamDb = sv.hTeam;
+    // var homeTeamScore = sv.;
+    var awayCityDb = sv.aCity;
+    var awayTeamDb = sv.aTeam;
+    // var awayTeamScore =;
+
+    // Console.logging data returned from db query
+    // console.log(week);
+    // console.log(id);
+    // console.log(date);
+    // console.log(time);
+    // console.log(stadium);
+    // console.log(homeCityDb);
+    // console.log(homeTeamDb);
+    // console.log(awayCityDb);
+    // console.log(awayTeamDb);
+
+    // // display sports info/stats in DOM based on user actions
+    
+    $("#tableBody").append("<tr><td>" + week + "</td><td>" + date + "</td><td>" + time + "</td><td>" + stadium + "</td><td>" + homeCityDb + "</td><td>" + homeTeamDb + "</td><td>" + awayCityDb + "</td><td>" + awayTeamDb + "</td></tr>");
+    
+    // $("#name-display").text(sv.name);
+    // $("#role-display").text(sv.destination);
+    // $("#start-date-display").text(sv.arrival);
+    // $("#monthly-rate-display").text(sv.frequency);
+
+    // Logs the errors in console
+  }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+  });
+}; // close firebase
 

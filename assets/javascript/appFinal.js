@@ -1,39 +1,43 @@
     
 // create the drop pins and associated coordinates for each city
 function initMap() {
+
+
   // coordinates for each of the 32 teams stadiums 
-  var SF = {lat: 37.4020148919, lng: -121.968869091};
-  var NYJ = {lat: 40.712775, lng: -74.005973};
-  var MSP = {lat: 44.974310, lng: -93.259688};
-  var DAL = {lat: 32.747284, lng: -97.094494};
-  var GBP = {lat: 44.501, lng: -88.062};
-  var DET = {lat: 42.3373, lng: -83.0407};
-  var CHI = {lat: 41.8625, lng: -87.616667};
-  var IND = {lat: 39.759991, lng: -86.163712};
-  var HOU = {lat: 29.684722, lng: -95.410833};
-  var WSH = {lat: 38.907778, lng: -76.864444};
-  var NYG = {lat: 40.8131197, lng: -74.0742911};
-  var PBS = {lat: 40.446667, lng: -80.015833};
-  var CLB = {lat: 41.506111, lng: -81.699444};
-  var ATL = {lat: 33.7575, lng: -84.400833};
-  var PHI = {lat: 39.900833, lng: -75.1675};
-  var NEP = {lat: 42.090833, lng: -71.264167};
-  var CAR = {lat: 35.225833, lng: -80.852778};
-  var BFB = {lat: 42.774, lng: -78.787};
-  var MIA = {lat: 25.958056, lng: -80.238889};
-  var NOS = {lat: 29.950833, lng: -90.081111};
-  var TPB = {lat: 27.975833, lng: -82.503333};
-  var JKS = {lat: 30.323889, lng: -81.6375};
-  var TEN = {lat: 36.166389, lng: -86.771389};
-  var CIN = {lat: 39.095278, lng: -84.515833};
-  var BAL = {lat: 39.277778, lng: -76.6225};
-  var ARZ = {lat: 33.5275, lng: -112.2625};
-  var SEA = {lat: 47.5949685, lng: -122.3316641};
-  var LAR = {lat: 33.9504, lng: -118.2611};
-  var LAC = {lat: 33.951, lng: -118.2615};
-  var KCC = {lat: 39.048889, lng: -94.483889};
-  var DEN = {lat: 39.743889, lng: -105.02};
-  var OAK = {lat: 37.751667, lng: -122.200556};
+    var SF = {lat: 37.4020148919, lng: -121.968869091};
+    var NYJ = {lat: 40.712775, lng: -74.005973};
+    var MSP = {lat: 44.974310, lng: -93.259688};
+    var DAL = {lat: 32.747284, lng: -97.094494};
+    var GBP = {lat: 44.501, lng: -88.062};
+    var DET = {lat: 42.3373, lng: -83.0407};
+    var CHI = {lat: 41.8625, lng: -87.616667};
+    var IND = {lat: 39.759991, lng: -86.163712};
+    var HOU = {lat: 29.684722, lng: -95.410833};
+    var WSH = {lat: 38.907778, lng: -76.864444};
+    var NYG = {lat: 40.8131197, lng: -74.0742911};
+    var PBS = {lat: 40.446667, lng: -80.015833};
+    var CLB = {lat: 41.506111, lng: -81.699444};
+    var ATL = {lat: 33.7575, lng: -84.400833};
+    var PHI = {lat: 39.900833, lng: -75.1675};
+    var NEP = {lat: 42.090833, lng: -71.264167};
+    var CAR = {lat: 35.225833, lng: -80.852778};
+    var BFB = {lat: 42.774, lng: -78.787};
+    var MIA = {lat: 25.958056, lng: -80.238889};
+    var NOS = {lat: 29.950833, lng: -90.081111};
+    var TPB = {lat: 27.975833, lng: -82.503333};
+    var JKS = {lat: 30.323889, lng: -81.6375};
+    var TEN = {lat: 36.166389, lng: -86.771389};
+    var CIN = {lat: 39.095278, lng: -84.515833};
+    var BAL = {lat: 39.277778, lng: -76.6225};
+    var ARZ = {lat: 33.5275, lng: -112.2625};
+    var SEA = {lat: 47.5949685, lng: -122.3316641};
+    var LAR = {lat: 33.9504, lng: -118.2611};
+    var LAC = {lat: 33.951, lng: -118.2615};
+    var KCC = {lat: 39.048889, lng: -94.483889};
+    var DEN = {lat: 39.743889, lng: -105.02};
+    var OAK = {lat: 37.751667, lng: -122.200556};
+  
+  // create icons for all markers
     var icon1 = {
     url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/San_Francisco_49ers_logo.svg/800px-San_Francisco_49ers_logo.svg.png", // url
     scaledSize: new google.maps.Size(40, 25), // scaled size
@@ -235,166 +239,166 @@ function initMap() {
     center: middleLoc
   });
   // create variables for map markers for all 32 teams
-  var marker1 = new google.maps.Marker({
-    position: SF,
-    map: map,
-    icon: icon1
-  });
-  var marker2 = new google.maps.Marker({
-    position: NYJ,
-    map: map,
-    icon: icon2
-  });
-  var marker3 = new google.maps.Marker({
-    position: MSP,
-    map: map,
-    icon: icon3
-  });
-  var marker4 = new google.maps.Marker({
-    position: DAL,
-    map: map,
-    icon: icon4
-  });
-  var marker5 = new google.maps.Marker({
-    position: GBP,
-    map: map,
-    icon: icon5
-  });
-  var marker6 = new google.maps.Marker({
-    position: DET,
-    map: map,
-    icon: icon6
-  });
-  var marker7 = new google.maps.Marker({
-    position: CHI,
-    map: map,
-    icon: icon7
-  });
-  var marker8 = new google.maps.Marker({
-    position: IND,
-    map: map,
-    icon: icon8
-  });
-  var marker9 = new google.maps.Marker({
-    position: HOU,
-    map: map,
-    icon: icon9
-  });
-  var marker10 = new google.maps.Marker({
-    position: WSH,
-    map: map,
-    icon: icon10
-  });
-  var marker11 = new google.maps.Marker({
-    position: NYG,
-    map: map,
-    icon: icon11
-  });
-  var marker12 = new google.maps.Marker({
-    position: PBS,
-    map: map,
-    icon: icon12
-  });
-  var marker13 = new google.maps.Marker({
-    position: CLB,
-    map: map,
-    icon: icon13
-  });
-  var marker14 = new google.maps.Marker({
-    position: ATL,
-    map: map,
-    icon: icon14
-  });
-  var marker15 = new google.maps.Marker({
-    position: PHI,
-    map: map,
-    icon: icon15
-  });
-  var marker16 = new google.maps.Marker({
-    position: NEP,
-    map: map,
-    icon: icon16
-  });
-  var marker17 = new google.maps.Marker({
-    position: CAR,
-    map: map,
-    icon: icon17
-  });
-  var marker18 = new google.maps.Marker({
-    position: BFB,
-    map: map,
-    icon: icon18
-  });
-  var marker19 = new google.maps.Marker({
-    position: MIA,
-    map: map,
-    icon: icon19
-  });
-  var marker20 = new google.maps.Marker({
-    position: NOS,
-    map: map,
-    icon: icon20
-  });
-  var marker21 = new google.maps.Marker({
-    position: TPB,
-    map: map,
-    icon: icon21
-  });
-  var marker22 = new google.maps.Marker({
-    position: JKS,
-    map: map,
-    icon: icon22
-  });
-  var marker23 = new google.maps.Marker({
-    position: TEN,
-    map: map,
-    icon: icon23
-  });
-  var marker24 = new google.maps.Marker({
-    position: CIN,
-    map: map,
-    icon: icon24
-  });
-  var marker25 = new google.maps.Marker({
-    position: BAL,
-    map: map,
-    icon: icon25
-  });
-  var marker26 = new google.maps.Marker({
-    position: ARZ,
-    map: map,
-    icon: icon26
-  });
-  var marker27 = new google.maps.Marker({
-    position: SEA,
-    map: map,
-    icon: icon27
-  });
-  var marker28 = new google.maps.Marker({
-    position: LAR,
-    map: map,
-    icon: icon28
-  });
-  var marker29 = new google.maps.Marker({
-    position: LAC,
-    map: map,
-    icon: icon29
-  });
-  var marker30 = new google.maps.Marker({
-    position: KCC,
-    map: map,
-    icon: icon30
-  });
-  var marker31 = new google.maps.Marker({
-    position: DEN,
-    map: map,
-    icon: icon31
-  });
-  var marker32 = new google.maps.Marker({
-    position: OAK,
-    map: map,
-    icon: icon32
-  });
+    var marker1 = new google.maps.Marker({
+      position: SF,
+      map: map,
+      icon: icon1
+    });
+    var marker2 = new google.maps.Marker({
+      position: NYJ,
+      map: map,
+      icon: icon2
+    });
+    var marker3 = new google.maps.Marker({
+      position: MSP,
+      map: map,
+      icon: icon3
+    });
+    var marker4 = new google.maps.Marker({
+      position: DAL,
+      map: map,
+      icon: icon4
+    });
+    var marker5 = new google.maps.Marker({
+      position: GBP,
+      map: map,
+      icon: icon5
+    });
+    var marker6 = new google.maps.Marker({
+      position: DET,
+      map: map,
+      icon: icon6
+    });
+    var marker7 = new google.maps.Marker({
+      position: CHI,
+      map: map,
+      icon: icon7
+    });
+    var marker8 = new google.maps.Marker({
+      position: IND,
+      map: map,
+      icon: icon8
+    });
+    var marker9 = new google.maps.Marker({
+      position: HOU,
+      map: map,
+      icon: icon9
+    });
+    var marker10 = new google.maps.Marker({
+      position: WSH,
+      map: map,
+      icon: icon10
+    });
+    var marker11 = new google.maps.Marker({
+      position: NYG,
+      map: map,
+      icon: icon11
+    });
+    var marker12 = new google.maps.Marker({
+      position: PBS,
+      map: map,
+      icon: icon12
+    });
+    var marker13 = new google.maps.Marker({
+      position: CLB,
+      map: map,
+      icon: icon13
+    });
+    var marker14 = new google.maps.Marker({
+      position: ATL,
+      map: map,
+      icon: icon14
+    });
+    var marker15 = new google.maps.Marker({
+      position: PHI,
+      map: map,
+      icon: icon15
+    });
+    var marker16 = new google.maps.Marker({
+      position: NEP,
+      map: map,
+      icon: icon16
+    });
+    var marker17 = new google.maps.Marker({
+      position: CAR,
+      map: map,
+      icon: icon17
+    });
+    var marker18 = new google.maps.Marker({
+      position: BFB,
+      map: map,
+      icon: icon18
+    });
+    var marker19 = new google.maps.Marker({
+      position: MIA,
+      map: map,
+      icon: icon19
+    });
+    var marker20 = new google.maps.Marker({
+      position: NOS,
+      map: map,
+      icon: icon20
+    });
+    var marker21 = new google.maps.Marker({
+      position: TPB,
+      map: map,
+      icon: icon21
+    });
+    var marker22 = new google.maps.Marker({
+      position: JKS,
+      map: map,
+      icon: icon22
+    });
+    var marker23 = new google.maps.Marker({
+      position: TEN,
+      map: map,
+      icon: icon23
+    });
+    var marker24 = new google.maps.Marker({
+      position: CIN,
+      map: map,
+      icon: icon24
+    });
+    var marker25 = new google.maps.Marker({
+      position: BAL,
+      map: map,
+      icon: icon25
+    });
+    var marker26 = new google.maps.Marker({
+      position: ARZ,
+      map: map,
+      icon: icon26
+    });
+    var marker27 = new google.maps.Marker({
+      position: SEA,
+      map: map,
+      icon: icon27
+    });
+    var marker28 = new google.maps.Marker({
+      position: LAR,
+      map: map,
+      icon: icon28
+    });
+    var marker29 = new google.maps.Marker({
+      position: LAC,
+      map: map,
+      icon: icon29
+    });
+    var marker30 = new google.maps.Marker({
+      position: KCC,
+      map: map,
+      icon: icon30
+    });
+    var marker31 = new google.maps.Marker({
+      position: DEN,
+      map: map,
+      icon: icon31
+    });
+    var marker32 = new google.maps.Marker({
+      position: OAK,
+      map: map,
+      icon: icon32
+    });
 
 // "teams" Array of objects (each team) with title (city), title2 (name), marker#, etc
     var teams = [
@@ -591,10 +595,6 @@ function initMap() {
         marker: marker32
       }
     ]
-      // console.log("CURRENT OBJECTS in teams array: ")
-      // console.log(teams);
-      // console.log(teams[0].marker);
-      // console.log(teams[0].fullName);
 
   // add on click event listener - when a marker clicked
     marker1.addListener('click', function() {
@@ -795,31 +795,12 @@ function initMap() {
       callAPI(teamParam);
     });
 
-
-    // $("#bRegular").on("click", function() {
-    //   console.log("Regular Season selected");
-    //   var mode = "regular";
-    //   var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/full_game_schedule.json?team=";
-    // })
-    // $("#bPlayoff").on("click", function() {
-    //   console.log("Playoffs selected");
-    //   var mode = "playoff";
-    //   var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/full_game_schedule.json?team=";
-    // })
-
-    //   // pass value of teamParam from userSearch or marker clicks into this function for completing URL req
-    //   // console.log(teamParam);
-
-    //   //  API parameters and url (Param must be formatted like this "detroit-lions")
-    //   // var teamParam = "detroit-lions";
-    //   console.log(queryURL);
-
-    // When search button is clicked...
+  // When search button is clicked...
     $("#searchButton").on("click", function(event) {
       event.preventDefault();
       userSearch();
     })
-
+    // retreive value from input form and validate
     function userSearch() {
       // This line grabs the input from the textbox and stores in var teamParam after removing extra spaces and convert to lowercase
       var userInput = $("#search").val().trim().toLowerCase();
@@ -833,76 +814,69 @@ function initMap() {
             var team = teams[i].title2;
             var teamParam = teams[i].fullName;
             console.log("CORRECT MATCH: " + teamParam);
-            // console.log(teams[i].marker);
           }
           else {
             console.log("No match. this is the " + teams[i].fullName + " object")
           }
-      }
+      } // close loop
       // user experience - validate user input
-      // if userInput is valid team in teams.title2 object log note
+      // if userInput is valid team in teams.title2 object call function callAPI and log note
       if (team == userInput) {
         console.log('"' + team + '" is valid user input');
         callAPI(teamParam);
       }
-      // else If input not valid team then: alert("Please enter a valid NFL team name (e.g. Packers, Lions, etc.)")
+      // else if input not valid team then: alert("Please enter a valid NFL team name (e.g. Packers, Lions, etc.)")
       else {
         console.log('ERROR: "' + userInput + '" is invalid user input');
         alert("Sorry, '" + userInput + "' is not an NFL team. Please enter a valid NFL team name (e.g. Packers, Lions, Patriots, etc.)");
+        // clear form input field
         $("#search").val("");
       }
     } // close userSearch function
 
-    // function which takes parameter from click event and calls API to get basic team info and id
+    // function takes parameter from click event and calls API to get basic team info and id
     function callAPI(teamParam) {
       // default parameters for API URL 
       var year = "2017-2018"
       var mode = "regular" 
       var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/full_game_schedule.json?team=";
-      console.log(qryURL);
+      // only write to firebase db if this param is "yes"
       var db = "yes";
       var season = year + " Regular";
-
+      // when 2015 button clicked, create variables to pass as arguments and call seasonFilter function
       $("#b2015").on("click", function() {
-        console.log("2015 season selected");
-        console.log("teamParam: " + teamParam)
         var year = "2015-2016";
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + "regular" + "/full_game_schedule.json?team=";
-        // console.log("queryURL: " + qryURL);
         var db = "no";
         var season = year;
         seasonFilter(teamParam, qryURL, db, season);
       })
+      // when 2016 button clicked, create variables to pass as arguments and call seasonFilter function
       $("#b2016").on("click", function() {
-        console.log("2016 season selected");
-        console.log("teamParam: " + teamParam)
         var year = "2016-2017";
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + "regular" + "/full_game_schedule.json?team=";
-        // console.log("queryURL: " + qryURL);
         var db = "no";
         var season = year;
         seasonFilter(teamParam, qryURL, db, season);
       })
+      // when 2017 button clicked, create variables to pass as arguments and call seasonFilter function
       $("#b2017").on("click", function() {
-        console.log("2017 season selected");
-        console.log("teamParam: " + teamParam)
         var year = "2017-2018";
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + "regular" + "/full_game_schedule.json?team=";
-        // console.log("queryURL: " + qryURL);
         var db = "no";
         var season = year;
         seasonFilter(teamParam, qryURL, db, season);
       })
+      // when Regular button clicked, create variables to pass as arguments and call seasonFilter function
       $("#bRegular").on("click", function() {
-        console.log("Regular Season selected");
         var mode = "regular";
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + "2017-2018" + "-" + mode + "/full_game_schedule.json?team=";
         var db = "no";
         var season = "Regular";
         seasonFilter(teamParam, qryURL, db, season);
       })
+      // when Playoff button clicked, create variables to pass as arguments and call seasonFilter function
       $("#bPlayoff").on("click", function() {
-        console.log("Playoffs selected");
         var mode = "playoff";
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + "2017-2018" + "-" + mode + "/full_game_schedule.json?team=";
         var db = "no";
@@ -910,13 +884,12 @@ function initMap() {
         seasonFilter(teamParam, qryURL, db, season);
       })
 
-      // call seasonFilter function and pass arguments needed for api URL parameters
+      // else when free form entry search validated (userSearch function above) then call seasonFilter function and pass arguments needed for api URL parameters
       seasonFilter(teamParam, qryURL, db, season);
       // this function takes all parameters required for AJAX call and queries API - if user selects buttons for season or type (playoff/regular) will bypass firebase
       function seasonFilter(teamParam, qryURL, db, season){
         // concats parameters to store api URL
         var queryURLz = qryURL + teamParam;
-        console.log(queryURLz);
         // create variables to hold credentials for sports API
         var password = "Rsvrfx35$";
         var username = "makeitso";
@@ -931,35 +904,34 @@ function initMap() {
           },
           // when ajax call done then return response
           success: function (response){
-            // console.log(response.fullgameschedule.gameentry[0]);
             // var (obj) to store game objects with game info
             var gameEntry = response.fullgameschedule.gameentry;
-            // console.log(url);
+            // create variables for pushing into DOM via dynamic text (Team Names and Season) below
             var homeCityTeam = homeCity + " " + homeTeam;
             var awayCityTeam = awayCity + " " + awayTeam;
-
+            // normalizing text from original format (e.g. greenbay-packers)
+            // create var to store first part of string (before '-')
             var displayCity = teamParam.substring(0,teamParam.indexOf('-'));
+            // make all UPPER case
             var displayCityName = displayCity.toUpperCase();
-            console.log(displayCityName);
-            // function to get second part of string teamParam which returns team name
+            // function to parse and retrieve second part of string teamParam which returns Team Name (e.g. packers)
             function getSecondPart(str){
               return str.split('-')[1];
             }
             // use the function and assign to var displayTeam
             var displayTeam = getSecondPart(teamParam);
+            // make all UPPER case
             var displayTeamName = displayTeam.toUpperCase();
-            console.log(displayTeamName);
-            // create panel header with buttons 
-            // $("#buttons").html("<div><a id='b2015' class='btn btn-default btn-xs'>2015</a>" + " " + "<a id='b2016' class='btn btn-default btn-xs'>2016</a>" + " " + "<a id='b2017' class='btn btn-default btn-xs'>2017</a></div>");
-            // $("#headerButtons").addClass("animated bounceInUp");
+            // dynamically create panel header with changing var values based on user action and display in DOM
             $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
             $("#schedule").addClass("panel-heading");
-            // create table headers and display in DOM
+            // dynamically create table header row and display in DOM
             $("#firstRow").html("<table><thead><tr><th>" + "Week" + "</th><th>" + "Date" + "</th><th>" + "Time" + "</th><th>" + "Stadium" + "</th><th>" + "Home Team" + "</th><th>" + "Away Team" + "</th></tr></thead></table>");
             $("#statsTable").addClass("animated bounceInUp");
-            // call second API URL for score data (passing gameID parameter)
-            // callAPI2(gameID);
-            // console.log("database push: " + db);
+            //--------------------------------------------------------//
+            // call second API URL for a lot more data (scores, stats, players, etc. - however API performance is very poor)
+            // callAPI2(gameID); // (passing required gameID parameter)
+            //--------------------------------------------------------//
             // if db = yes then write to firebase 
             if (db == "yes") {
               // call function to write to firebase database
@@ -967,14 +939,13 @@ function initMap() {
             }
             // else bypass firebase and display in DOM
             else if (db == "no") {
-              // alert("something happens when user selects filter button");
+              // clear div
               $("#tableBody").html("");
-              // console.log(gameEntry);
               // loop through all the games 
               for (var i = 0; i < gameEntry.length; i++) {
-                // returns gameEntries which contain all data for each teams schedule
+                // for each one -> returns all data for each teams schedule: opponent, date, time, stadium, etc.
                 var teamStats = response.fullgameschedule.gameentry[i];
-                // created variables to hold team names and location of game, etc.
+                // created variables to hold team info 
                 var awayTeam = teamStats.awayTeam.Name;
                 var stadium = teamStats.location;
                 var homeTeam = teamStats.homeTeam.Name;
@@ -986,46 +957,30 @@ function initMap() {
                 var gameID = teamStats.id;
                 var homeCityTeam = homeCity + " " + homeTeam;
                 var awayCityTeam = awayCity + " " + awayTeam;
-
-                // console.log("-----------------------");
-                // console.log("------GAME DETAILS-----");
-                // console.log("-----------------------");
-                // console.log("Week: " + weekNum);
-                // console.log("Game ID: " + gameID);
-                // console.log("-----------------------");
-                // console.log("--- Home Team ---");
-                // console.log("City: " + homeCity);
-                // console.log("Home Team: " + homeTeam);
-                // console.log("--- Visiting Team ---");
-                // console.log("City: " + awayCity);
-                // console.log("Away Team: " + awayTeam);
-                // console.log("--- Other Info ---");
-                // console.log("Stadium: " + stadium);
-                // console.log("Game Day: " + gameDate);
-                // console.log("Game Time: " + gameTime);
-
                 // display game info in DOM
                 $("#tableBody").append("<tr><td>" + weekNum + "</td><td>" + gameDate + "</td><td>" + gameTime + "</td><td>" + stadium + "</td><td>" + homeCityTeam + "</td><td>" + awayCityTeam + "</td></tr>");
-                // call second API to return game stats for each game
-                // callAPI2(gameID);
+                //--------------------------------------------------------//
+                // call second API URL for a lot more data (scores, stats, players, etc. - however API performance is very poor)
+                // callAPI2(gameID); // (passing required gameID parameter)
+                //--------------------------------------------------------//
               } // close for loop
-
-
+              // create var to store first part of string (before '-')
               var displayCity = teamParam.substring(0,teamParam.indexOf('-'));
+              // to UPPER case
               var displayCityName = displayCity.toUpperCase();
-              console.log(displayCityName);
-              // function to get second part of string teamParam which returns team name
+              // function to parse and retrieve second part of string teamParam which returns Team Name (e.g. packers)
               function getSecondPart(str){
                 return str.split('-')[1];
               }
-              // use the function and assign to var displayTeam
+              // execute function and assign to var displayTeam
               var displayTeam = getSecondPart(teamParam);
+              // to UPPER case
               var displayTeamName = displayTeam.toUpperCase();
-              console.log(displayTeamName);
-
+              // dynamically create panel header with changing var values based on user action and display in DOM
               $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
+              // adding classes for animation and bootswatch formatting
               $("#schedule").addClass("panel-heading animated bounceInRight");
-            }
+            } // close else() condition
             // clear user search input form
             $("#search").val("");
           } // close first API response function
@@ -1034,7 +989,7 @@ function initMap() {
     } // close AJAX function
 
     // this function calls second API url to get all team stats for each game
-    // passing parameter "gameID" var -- its a required parameter for the API URL on line 483
+    // passing parameter "gameID" var -- its a required parameter for the API URL
     function callAPI2(gameID) {
       var year = "2017-2018"
       var mode = "regular"
@@ -1052,193 +1007,132 @@ function initMap() {
         },
         // when ajax call done then return response
         success: function (response){
-          // console.log(response);
-          // variables to store response
+          // variables to store response -- many many stats
           var gameBoxScore = response.gameboxscore;
           var awayTeamStats = response.gameboxscore.awayTeam.awayTeamStats;
           var homeTeamStats = response.gameboxscore.homeTeam.homeTeamStats;
-
-  ///// COULD ALSO BUILD second small table to display player injuries for selected team //////
-  ///// THe following stats avail: Name, Number, Position, Injury //////
-  ///// Could have second page with table of active players //////
-  ///// The followig stats avail: Team, Name, Number, Position, Height, Weight, Age, Rookie? ////
-
-          console.log("-----------------------------");
-          console.log("------ HOME TEAM STATS ------"); 
-      // down stats and penalties
-          console.log("----- downs and penalties -----");
+          // down stats and penalties
           // # first downs
           var hFirstDownsTotal = Object.values(homeTeamStats.FirstDownsTotal);
           var homeFirstDownsTotal = hFirstDownsTotal[2];
-          console.log("# First Downs: " + homeFirstDownsTotal);    
           // third down pct
           var hThirdDownsPct = Object.values(homeTeamStats.ThirdDownsPct);
           var homeThirdDownsPct = hThirdDownsPct[2];
-          console.log("Third Down Success Rate (%): " + homeThirdDownsPct);                       
           // fourth down pct
           var hFourthDownsPct = Object.values(homeTeamStats.FourthDownsPct);
           var homeFourthDownsPct = hFourthDownsPct[2];
-          console.log("Fourth Down Success Rate (%): " + homeFourthDownsPct);              
           // # penalties
           var hPenalties = Object.values(homeTeamStats.Penalties);
           var homePenalties = hPenalties[2];
-          console.log("# Penalties: " + homePenalties);  
           // penalty yards
           var hPenaltyYds = Object.values(homeTeamStats.PenaltyYds);
           var homePenaltyYds = hPenaltyYds[2];
-          console.log("Penalties Yards: " + homePenaltyYds);                    
-      // rushing stats
-          console.log("----- Rushing Stats -----");
+          // rushing stats
           // attempts
           var hRushAttempts = Object.values(homeTeamStats.RushAttempts);
           var homeRushAttempts = hRushAttempts[2];
-          console.log("Rush Attempts: " + homeRushAttempts);
           // yards
           var hRushYards = Object.values(homeTeamStats.RushYards);
           var homeRushYards = hRushYards[2];
-          console.log("Rush Yards: " + homeRushYards);          
           // avg yards per rush
           var hRushAverage = Object.values(homeTeamStats.RushAverage);
           var homeRushAverage = hRushAverage[2];
-          console.log("Avg Yards Per Rush (%): " + homeRushAverage);             
           // TDs
           var hRushTD = Object.values(homeTeamStats.RushTD);
           var homeRushTD = hRushTD[2];
-          console.log("Rush TDs: " + homeRushTD);             
-      // passing stats
-          console.log("----- Passing Stats -----");
+          // passing stats
           // attempts
           var hPassAttempts = Object.values(homeTeamStats.PassAttempts);
           // console.log(hPassAttempts);
           var homePassAttempts = hPassAttempts[2];
-          console.log("Pass Attempts: " + homePassAttempts);
           // completions
           var hPassCompletions = Object.values(homeTeamStats.PassCompletions);
           var homePassCompletions = hPassCompletions[2];
-          console.log("Pass Completions: " + homePassCompletions);
           // completion pct
           var hPassPct = Object.values(homeTeamStats.PassPct);
           var homePassPct = hPassPct[2];
-          console.log("Completion %: " + homePassPct);
           // yards
           var hPassYards = Object.values(homeTeamStats.PassGrossYards);
           var homePassYards = hPassYards[2];
-          console.log("Pass Yards: " + homePassYards);          
           // TDs
           var hPassTD = Object.values(homeTeamStats.PassTD);
           var homePassTD = hPassTD[2];
-          console.log("Pass TDs: " + homePassTD);              
-      // total offense stats
-          console.log("------ Home Team Total Offense ------");
+          // total offense stats
           // Total Offense Yards
           var hOffenseYds = Object.values(homeTeamStats.OffenseYds);
           var homeOffenseYds = hOffenseYds[2];
-          console.log("Total Offense Yards: " + homeOffenseYds);   
           // Total TDs 
           var hTotalTD = Object.values(homeTeamStats.TotalTD);
           var homeTotalTD = hTotalTD[2];
-          console.log("Total Touchdowns: " + homeTotalTD);             
           // Interceptions
           var hInt = Object.values(homeTeamStats.PassInt);
           var homeInt = hInt[2];
-          console.log("# Interceptions: " + homeInt);             
           // QB rating
           var hQBRating = Object.values(homeTeamStats.QBRating);
           var homeQBRating = hQBRating[2];
-          console.log("QB Rating: " + homeQBRating);          
-          console.log("-----------------------------");
-          console.log("------ AWAY TEAM STATS ------"); 
-      // down stats and penalties
-          console.log("----- downs and penalties -----");
+          // down stats and penalties
           // # first downs
           var aFirstDownsTotal = Object.values(awayTeamStats.FirstDownsTotal);
           var awayFirstDownsTotal = aFirstDownsTotal[2];
-          console.log("# First Downs: " + awayFirstDownsTotal);    
           // third down pct
           var aThirdDownsPct = Object.values(awayTeamStats.ThirdDownsPct);
           var awayThirdDownsPct = aThirdDownsPct[2];
-          console.log("Third Down Success Rate (%): " + awayThirdDownsPct);                       
           // fourth down pct
           var aFourthDownsPct = Object.values(awayTeamStats.FourthDownsPct);
           var awayFourthDownsPct = aFourthDownsPct[2];
-          console.log("Fourth Down Success Rate (%): " + awayFourthDownsPct);              
           // # penalties
           var aPenalties = Object.values(awayTeamStats.Penalties);
           var awayPenalties = aPenalties[2];
-          console.log("# Penalties: " + awayPenalties);  
           // penalty yards
           var aPenaltyYds = Object.values(awayTeamStats.PenaltyYds);
           var awayPenaltyYds = aPenaltyYds[2];
-          console.log("Penalties Yards: " + awayPenaltyYds);                    
-      // rushing stats
-          console.log("----- Rushing Stats -----");
+          // rushing stats
           // attempts
           var aRushAttempts = Object.values(awayTeamStats.RushAttempts);
           var awayRushAttempts = aRushAttempts[2];
-          console.log("Rush Attempts: " + awayRushAttempts);
           // yards
           var aRushYards = Object.values(awayTeamStats.RushYards);
           var awayRushYards = aRushYards[2];
-          console.log("Rush Yards: " + awayRushYards);          
           // avg yards per rush
           var aRushAverage = Object.values(awayTeamStats.RushAverage);
           var awayRushAverage = aRushAverage[2];
-          console.log("Avg Yards Per Rush (%): " + awayRushAverage);             
           // TDs
           var aRushTD = Object.values(awayTeamStats.RushTD);
           var awayRushTD = aRushTD[2];
-          console.log("Rush TDs: " + awayRushTD);    
-      // passing stats
-          console.log("----- Passing Stats -----");
+          // passing stats
           // attempts
           var aPassAttempts = Object.values(awayTeamStats.PassAttempts);
           var awayPassAttempts = aPassAttempts[2];
-          console.log("Pass Attempts (away): " + awayPassAttempts);
           // completions
           var aPassCompletions = Object.values(awayTeamStats.PassCompletions);
           var awayPassCompletions = aPassCompletions[2];
-          console.log("Pass Completions: " + awayPassCompletions);
           // completion pct
           var aPassPct = Object.values(awayTeamStats.PassPct);
           var awayPassPct = aPassPct[2];
-          console.log("Completion %: " + awayPassPct);
           // yards
           var aPassYards = Object.values(awayTeamStats.PassGrossYards);
           var awayPassYards = aPassYards[2];
-          console.log("Pass Yards: " + awayPassYards);          
           // TDs
           var aPassTD = Object.values(awayTeamStats.PassTD);
           var awayPassTD = aPassTD[2];
-          console.log("Pass TDs: " + awayPassTD);              
-      // total offense stats
-          console.log("------ Away Team Total Offense ------");
+          // total offense stats
           // Total Offense Yards
           var aOffenseYds = Object.values(awayTeamStats.OffenseYds);
           var awayOffenseYds = aOffenseYds[2];
-          console.log("Total Offense Yards: " + awayOffenseYds);   
           // Total TDs 
           var aTotalTD = Object.values(awayTeamStats.TotalTD);
           var awayTotalTD = aTotalTD[2];
-          console.log("Total Touchdowns: " + awayTotalTD);             
           // Interceptions
           var aInt = Object.values(awayTeamStats.PassInt);
           var awayInt = aInt[2];
-          console.log("# Interceptions: " + awayInt);             
           // QB rating
           var aQBRating = Object.values(awayTeamStats.QBRating);
           var awayQBRating = aQBRating[2];
-          console.log("QB Rating: " + awayQBRating);    
-      // total score for both teams
-          console.log("------ GAME SCORE ------")
+          // total score for both teams
           // home team score
           var homeScore = response.gameboxscore.quarterSummary.quarterTotals.homeScore;
-          console.log("Home Team: " + homeScore);  
           // away team score 
           var awayScore = response.gameboxscore.quarterSummary.quarterTotals.awayScore;
-          console.log("Away Team: " + awayScore);         
-          console.log("-----------------------");
-          console.log("-----------------------");
-
         } // close response function
       }) // close second AJAX call
     } //close callAPI2 function
@@ -1246,12 +1140,11 @@ function initMap() {
 } // close initMap function
 
 
-// function to write data to firebase database
+// function to write and query data to/from firebase database
 function fireBase(gameEntry) { 
-  // console.log(gameEntry);
-    // Initialize Firebase
-    $("#tableBody").html("");
-
+  // clear div
+  $("#tableBody").html("");
+  // Initialize Firebase
   var config = {
     apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
     authDomain: "sportsmap-1513476316039.firebaseapp.com",
@@ -1260,22 +1153,19 @@ function fireBase(gameEntry) {
     storageBucket: "sportsmap-1513476316039.appspot.com",
     messagingSenderId: "505062349594"
   };
-
+  // if firebase is not initialized, then initialize
   if (!firebase.apps.length) {
       var app = firebase.initializeApp(config);
   }
 
   // Create a variable to reference the database.
   var database = firebase.database();
-  // console.log(database);
-
-      app.delete();
-      // console.log(app);
+  // delete the var storing initialization so doesnt throw firebase error (duplicate entries)
+  app.delete();
       // Uploads data to the database
     for (var i = 0; i < gameEntry.length; i++) {
       // returns gameEntries which contain all data for each teams schedule
       var teamStats = gameEntry[i];
-      // console.log(teamStats);
       // created variables to hold team names and location of game, etc.
       var awayTeam = teamStats.awayTeam.Name;
       var stadium = teamStats.location;
@@ -1303,16 +1193,11 @@ function fireBase(gameEntry) {
       // push object game to firebase database
       database.ref().push(game);
     };  // close loop
-      // console.log(game);
-
 
   // Firebase listener -- Create Firebase event for querying db and adding team data / stats to the DOM (html) when a user clicks or enters team name
   database.ref().orderByChild("dateAdded").limitToLast(16).on("child_added", function(snapshot) {
     // storing the snapshot.val (similar to ajax response) - object returned from db query
     var sv = snapshot.val();
-    // console.log(sv);
-
-
     // variables for holding data from db query
     var week = sv.weekNumber;
     var id = sv.gameID;
@@ -1327,28 +1212,8 @@ function fireBase(gameEntry) {
     var awayTeamDb = sv.aTeam;
     var awayCityTeamDb = sv.aCityTeam;
     // var awayTeamScore =;
-
-    // Console.logging data returned from db query
-    // console.log(week);
-    // console.log(id);
-    // console.log(date);
-    // console.log(time);
-    // console.log(stadium);
-    // console.log(homeCityDb);
-    // console.log(homeTeamDb);
-    // console.log(awayCityDb);
-    // console.log(awayTeamDb);
-
-    // // display sports info/stats in DOM based on user actions
-    // $("#tableBody").empty();
-
+    // using data returned from firebase query dynamically display teams schedule info in table 
     $("#tableBody").append("<tr><td>" + week + "</td><td>" + date + "</td><td>" + time + "</td><td>" + stadium + "</td><td>" + homeCityTeamDb + "</td><td>" + awayCityTeamDb + "</td></tr>");
-    
-    // $("#name-display").text(sv.name);
-    // $("#role-display").text(sv.destination);
-    // $("#start-date-display").text(sv.arrival);
-    // $("#monthly-rate-display").text(sv.frequency);
-    
     // Logs the errors in console
   }, function(errorObject) {
     console.log("Errors handled: " + errorObject.code);

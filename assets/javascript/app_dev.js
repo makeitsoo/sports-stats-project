@@ -1,4 +1,15 @@
-    
+  // BACKUP COPY of appFinal.js - last save on: 
+  console.log(date());
+  
+
+
+  ///// COULD ALSO BUILD second small table to display player injuries for selected team //////
+  ///// THe following stats avail: Name, Number, Position, Injury //////
+  ///// Could have second page with table of active players //////
+  ///// The followig stats avail: Team, Name, Number, Position, Height, Weight, Age, Rookie? ////    
+
+
+
 // create the drop pins and associated coordinates for each city
 function initMap() {
   // coordinates for each of the 32 teams stadiums 
@@ -795,18 +806,6 @@ function initMap() {
       callAPI(teamParam);
     });
 
-
-    // $("#bRegular").on("click", function() {
-    //   console.log("Regular Season selected");
-    //   var mode = "regular";
-    //   var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/full_game_schedule.json?team=";
-    // })
-    // $("#bPlayoff").on("click", function() {
-    //   console.log("Playoffs selected");
-    //   var mode = "playoff";
-    //   var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/full_game_schedule.json?team=";
-    // })
-
     //   // pass value of teamParam from userSearch or marker clicks into this function for completing URL req
     //   // console.log(teamParam);
 
@@ -935,11 +934,24 @@ function initMap() {
             // var (obj) to store game objects with game info
             var gameEntry = response.fullgameschedule.gameentry;
             // console.log(url);
+            var homeCityTeam = homeCity + " " + homeTeam;
+            var awayCityTeam = awayCity + " " + awayTeam;
 
+            var displayCity = teamParam.substring(0,teamParam.indexOf('-'));
+            var displayCityName = displayCity.toUpperCase();
+            console.log(displayCityName);
+            // function to get second part of string teamParam which returns team name
+            function getSecondPart(str){
+              return str.split('-')[1];
+            }
+            // use the function and assign to var displayTeam
+            var displayTeam = getSecondPart(teamParam);
+            var displayTeamName = displayTeam.toUpperCase();
+            console.log(displayTeamName);
             // create panel header with buttons 
             // $("#buttons").html("<div><a id='b2015' class='btn btn-default btn-xs'>2015</a>" + " " + "<a id='b2016' class='btn btn-default btn-xs'>2016</a>" + " " + "<a id='b2017' class='btn btn-default btn-xs'>2017</a></div>");
             // $("#headerButtons").addClass("animated bounceInUp");
-            $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + teamParam + " " + season +  " Season - Team Schedule</h3>");
+            $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
             $("#schedule").addClass("panel-heading");
             // create table headers and display in DOM
             $("#firstRow").html("<table><thead><tr><th>" + "Week" + "</th><th>" + "Date" + "</th><th>" + "Time" + "</th><th>" + "Stadium" + "</th><th>" + "Home Team" + "</th><th>" + "Away Team" + "</th></tr></thead></table>");
@@ -973,6 +985,7 @@ function initMap() {
                 var gameID = teamStats.id;
                 var homeCityTeam = homeCity + " " + homeTeam;
                 var awayCityTeam = awayCity + " " + awayTeam;
+
                 // console.log("-----------------------");
                 // console.log("------GAME DETAILS-----");
                 // console.log("-----------------------");
@@ -989,12 +1002,28 @@ function initMap() {
                 // console.log("Stadium: " + stadium);
                 // console.log("Game Day: " + gameDate);
                 // console.log("Game Time: " + gameTime);
-                $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + teamParam + " " + season +  " Season - Team Schedule</h3>");
+
                 // display game info in DOM
                 $("#tableBody").append("<tr><td>" + weekNum + "</td><td>" + gameDate + "</td><td>" + gameTime + "</td><td>" + stadium + "</td><td>" + homeCityTeam + "</td><td>" + awayCityTeam + "</td></tr>");
                 // call second API to return game stats for each game
                 // callAPI2(gameID);
               } // close for loop
+
+
+              var displayCity = teamParam.substring(0,teamParam.indexOf('-'));
+              var displayCityName = displayCity.toUpperCase();
+              console.log(displayCityName);
+              // function to get second part of string teamParam which returns team name
+              function getSecondPart(str){
+                return str.split('-')[1];
+              }
+              // use the function and assign to var displayTeam
+              var displayTeam = getSecondPart(teamParam);
+              var displayTeamName = displayTeam.toUpperCase();
+              console.log(displayTeamName);
+
+              $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
+              $("#schedule").addClass("panel-heading animated bounceInRight");
             }
             // clear user search input form
             $("#search").val("");

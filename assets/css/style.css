@@ -27,6 +27,9 @@ body{
 height: 400px;
 width: 100%;
 }
+#seasonMode {
+	text-align: center;
+}
 .navbar-brand {
 	height: 50%;
 	width: 100px;

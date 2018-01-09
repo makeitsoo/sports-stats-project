@@ -843,13 +843,14 @@ function initMap() {
       // if userInput is valid team in teams.title2 object log note
       if (team == userInput) {
         console.log('"' + team + '" is valid user input');
+        callAPI(teamParam);
       }
       // else If input not valid team then: alert("Please enter a valid NFL team name (e.g. Packers, Lions, etc.)")
       else {
         console.log('ERROR: "' + userInput + '" is invalid user input');
         alert("Sorry, '" + userInput + "' is not an NFL team. Please enter a valid NFL team name (e.g. Packers, Lions, Patriots, etc.)");
+        $("#search").val("");
       }
-      callAPI(teamParam);
     } // close userSearch function
 
     // function which takes parameter from click event and calls API to get basic team info and id

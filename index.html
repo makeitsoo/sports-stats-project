@@ -11,6 +11,12 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <!-- CSS link -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+   <!-- animation library -->
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+    <!-- or -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 </head>
 <body>
@@ -19,41 +25,18 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <img src="https://www.organimi.com/wp-content/uploads/2017/07/NFL_logo.png" Width=class="navbar-brand" style="width:90px;height:110px; margin-bottom: -20px;">
-    </div>
+      </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul2 id="classnavnav" class="nav navbar-nav">
-        <li><a class="ghost" href="#">Map<span class="sr-only">(current)</span></a></li>
-        <li><a class="ghost" href="#">Stats</a></li>
-        <li class="dropdown">
-          <a class="ghost" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sports<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul2>
-      <form class="navbar-form navbar-left" role="search">
+
+      <form id="searchBox" class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input id="search" type="text" class="form-control" placeholder="Enter Team Name">
         </div>
         <button id="searchButton" type="submit" class="btn btn-default">Search</button>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-<!--         <li><a href="#">Link</a></li>
- -->      </ul>
+      <ul class="nav navbar-nav navbar-right"> </ul>
     </div>
   </div>
 </nav>
@@ -65,17 +48,25 @@
   		<div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Select a City/Team</h3>
+            <h3 class="panel-title">Select a Team</h3>
+            <div id="buttons">
+              <a id="b2015" class="btn btn-default btn-xs">2015</a>
+              <a id="b2016" class="btn btn-default btn-xs">2016</a>
+              <a id="b2017" class="btn btn-default btn-xs">2017</a>
+              |
+              <a id="bRegular" class="btn btn-default btn-xs">Regular</a>
+              <a id="bPlayoff" class="btn btn-default btn-xs">Playoff</a>
+            </div>
           </div>
           <div class="panel-body">
               <div id="map">
-                
               </div> <!-- close map div -->
           </div> <!-- close panel body -->
         </div> <!--panel close-->
   		</div> <!--close col -->
   	</div> <!--close row -->
  <!-- Table section --> 
+ <div id="statsTable">
     <div class="row">
       <div class="col-md-12 main">
         <div class="panel panel-default">
@@ -93,11 +84,12 @@
         </div> <!--panel close-->
       </div> <!-- close col-md-12 -->
     </div> <!-- close row -->
+  </div> <!-- close animation -->
     <div class="row"> <!-- row for logos -->
       <div class="col-md-12 main">
         <img src="./assets/images/broncos.png" class="col-md-1">
         <img src="./assets/images/cowboys.png" class="col-md-1">
-        <img src="./assets/images/panthers.png" class="col-md-1">
+        <img src="./assets/images/packers.png" class="col-md-1">
         <img src="./assets/images/patriots.png" class="col-md-1">
         <img src="./assets/images/texans.png" class="col-md-1">
         <img src="./assets/images/lions.png" class="col-md-1">
@@ -116,7 +108,7 @@
         <img src="./assets/images/dolphins.png" class="col-md-1">
         <img src="./assets/images/eagles.png" class="col-md-1">
         <img src="./assets/images/jaguars.png" class="col-md-1">
-        <img src="./assets/images/packers.png" class="col-md-1">
+        <img src="./assets/images/panthers.png" class="col-md-1">
         <img src="./assets/images/steelers.png" class="col-md-1">
         <img src="./assets/images/titans.png" class="col-md-1">
         <column class="col-md-1"></column>
@@ -142,11 +134,11 @@
         <div class="row my-4">
 
             <!--First column-->
-            <div class="col-md-4 col-lg-4">
+<!--             <div class="col-md-4 col-lg-4">
                 <h5 class="title mb-4 font-bold">NFL Teams Project</h5>
                 <p>Barry Alexander and Pavel create AWESOME project which can grab NFL sports data</p>
                 
-            </div>
+            </div> -->
             <!--/.First column-->
 
             <hr class="clearfix w-100 d-md-none">

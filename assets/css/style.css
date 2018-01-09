@@ -12,6 +12,17 @@ body{
 	background-image: url("http://nasa.github.io/w10n-reinvent/slides/podaac_assets/img/header-banner.jpg");
 	background-size: contain;
 }
+#buttons {
+	float:right;
+}
+.panel-title {
+	float:left;
+	font-size: 15px;
+	margin-top: 2px;
+}
+.panel-heading {
+	height: 40px;
+}
 #map {
 height: 400px;
 width: 100%;
@@ -33,6 +44,9 @@ li, #searchButton {
 	text-align: left;
 	margin-top: 25px;
 	/*border: solid 1px black;*/
+}
+#searchBox {
+	margin-left:30px;
 }
 
 a.ghost {

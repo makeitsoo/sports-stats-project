@@ -843,13 +843,14 @@ function initMap() {
       // if userInput is valid team in teams.title2 object log note
       if (team == userInput) {
         console.log('"' + team + '" is valid user input');
+        callAPI(teamParam);
       }
       // else If input not valid team then: alert("Please enter a valid NFL team name (e.g. Packers, Lions, etc.)")
       else {
         console.log('ERROR: "' + userInput + '" is invalid user input');
         alert("Sorry, '" + userInput + "' is not an NFL team. Please enter a valid NFL team name (e.g. Packers, Lions, Patriots, etc.)");
+        $("#search").val("");
       }
-      callAPI(teamParam);
     } // close userSearch function
 
     // function which takes parameter from click event and calls API to get basic team info and id
@@ -860,6 +861,7 @@ function initMap() {
       var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/full_game_schedule.json?team=";
       console.log(qryURL);
       var db = "yes";
+      var season = year + " Regular";
 
       $("#b2015").on("click", function() {
         console.log("2015 season selected");
@@ -868,7 +870,8 @@ function initMap() {
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + "regular" + "/full_game_schedule.json?team=";
         // console.log("queryURL: " + qryURL);
         var db = "no";
-        seasonFilter(teamParam, qryURL, db);
+        var season = year;
+        seasonFilter(teamParam, qryURL, db, season);
       })
       $("#b2016").on("click", function() {
         console.log("2016 season selected");
@@ -877,7 +880,8 @@ function initMap() {
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + "regular" + "/full_game_schedule.json?team=";
         // console.log("queryURL: " + qryURL);
         var db = "no";
-        seasonFilter(teamParam, qryURL, db);
+        var season = year;
+        seasonFilter(teamParam, qryURL, db, season);
       })
       $("#b2017").on("click", function() {
         console.log("2017 season selected");
@@ -886,27 +890,30 @@ function initMap() {
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + "regular" + "/full_game_schedule.json?team=";
         // console.log("queryURL: " + qryURL);
         var db = "no";
-        seasonFilter(teamParam, qryURL, db);
+        var season = year;
+        seasonFilter(teamParam, qryURL, db, season);
       })
       $("#bRegular").on("click", function() {
         console.log("Regular Season selected");
         var mode = "regular";
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + "2017-2018" + "-" + mode + "/full_game_schedule.json?team=";
         var db = "no";
-        seasonFilter(teamParam, qryURL, db);
+        var season = "Regular";
+        seasonFilter(teamParam, qryURL, db, season);
       })
       $("#bPlayoff").on("click", function() {
         console.log("Playoffs selected");
         var mode = "playoff";
         var qryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + "2017-2018" + "-" + mode + "/full_game_schedule.json?team=";
         var db = "no";
-        seasonFilter(teamParam, qryURL, db);
+        var season = "Playoffs";
+        seasonFilter(teamParam, qryURL, db, season);
       })
 
       // call seasonFilter function and pass arguments needed for api URL parameters
-      seasonFilter(teamParam, qryURL, db);
+      seasonFilter(teamParam, qryURL, db, season);
       // this function takes all parameters required for AJAX call and queries API - if user selects buttons for season or type (playoff/regular) will bypass firebase
-      function seasonFilter(teamParam, qryURL, db){
+      function seasonFilter(teamParam, qryURL, db, season){
         // concats parameters to store api URL
         var queryURLz = qryURL + teamParam;
         console.log(queryURLz);
@@ -927,9 +934,13 @@ function initMap() {
             // console.log(response.fullgameschedule.gameentry[0]);
             // var (obj) to store game objects with game info
             var gameEntry = response.fullgameschedule.gameentry;
+            // console.log(url);
+
             // create panel header with buttons 
             // $("#buttons").html("<div><a id='b2015' class='btn btn-default btn-xs'>2015</a>" + " " + "<a id='b2016' class='btn btn-default btn-xs'>2016</a>" + " " + "<a id='b2017' class='btn btn-default btn-xs'>2017</a></div>");
             // $("#headerButtons").addClass("animated bounceInUp");
+            $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + teamParam + " " + season +  " Season - Team Schedule</h3>");
+            $("#schedule").addClass("panel-heading");
             // create table headers and display in DOM
             $("#firstRow").html("<table><thead><tr><th>" + "Week" + "</th><th>" + "Date" + "</th><th>" + "Time" + "</th><th>" + "Stadium" + "</th><th>" + "Home Team" + "</th><th>" + "Away Team" + "</th></tr></thead></table>");
             $("#statsTable").addClass("animated bounceInUp");
@@ -978,6 +989,9 @@ function initMap() {
                 // console.log("Stadium: " + stadium);
                 // console.log("Game Day: " + gameDate);
                 // console.log("Game Time: " + gameTime);
+                $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + teamParam + " " + season +  " Season - Team Schedule</h3>");
+                $("#schedule").addClass("panel-heading animated bounceInRight");
+
                 // display game info in DOM
                 $("#tableBody").append("<tr><td>" + weekNum + "</td><td>" + gameDate + "</td><td>" + gameTime + "</td><td>" + stadium + "</td><td>" + homeCityTeam + "</td><td>" + awayCityTeam + "</td></tr>");
                 // call second API to return game stats for each game

@@ -1,7 +1,8 @@
-    
+// JS file for NFL Map Project //
+/////////////////////////////////    
+
 // create the drop pins and associated coordinates for each city
 function initMap() {
-
 
   // coordinates for each of the 32 teams stadiums 
     var SF = {lat: 37.4020148919, lng: -121.968869091};

@@ -1,12 +1,129 @@
   // BACKUP COPY of appFinal.js - last save on: 
-  console.log(date());
+  // console.log(date());
   
-
-
   ///// COULD ALSO BUILD second small table to display player injuries for selected team //////
   ///// THe following stats avail: Name, Number, Position, Injury //////
   ///// Could have second page with table of active players //////
   ///// The followig stats avail: Team, Name, Number, Position, Height, Weight, Age, Rookie? ////    
+
+
+
+
+//  **** START HERE ****  //
+
+// loop through all the games for getting gameID and store in firebase. 
+// first call all BASIC team info for each year, sport, players, etc (NFL_fullgameschedule) and save to firebase/database with id
+
+// build in on click event, identifies all 16 games for selected team/marker, 
+// when user clicks on specific game, 
+// jQuery(document).ready(function($) {
+//     $(".clickable-row").click(function() {
+//       alert("it works!");
+//         // window.location = $(this).data("href");
+//     });
+// });
+
+// <tr class='clickable-row' data-href='url://'> 
+//     <td>Blah Blah</td> <td>1234567</td> <td>£158,000</td>
+// </tr>
+
+
+
+// *DONE - get gameID associated with that game and use as input to second api call. 
+// *DONE - then return stats data from 2nd api call 
+// dynamically display stats in tables/cards on DOM 
+// store game stats in firebase for later use so dont have to call API unless data updated (see api documentation).
+// Have conditional statetment: (check firebase IF stats for gameID dont exist THEN callAPI2 for gameID)
+
+function ajx1(){
+  var year = "2017-2018";
+  var mode = "regular";
+  var queryURL = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/full_game_schedule.json";
+  var password = "Rsvrfx35$";
+  var username = "makeitso";
+
+  // AJAX call to mysportsfeed.com API
+  $.ajax({
+    type: "GET",
+    url: queryURL,
+    dataType: 'json',
+    async: true,
+    headers: {
+      "Authorization": "Basic " + btoa(username + ":" + password)
+    },
+    // when ajax call done then return response
+    success: function (response){
+      // console.log(response.fullgameschedule.gameentry[0]);
+      // var (obj) to store game objects with game info
+      var gameEntry = response.fullgameschedule.gameentry;
+      console.log(gameEntry);
+            // loop through all the games for getting gameID and storing in firebase. Then can have function that runs on page load (without disrupting page/user) and uses the gameID as input to 2nd API call.  
+      for (var i = 0; i < gameEntry.length; i++) {
+        // returns gameEntries which contain all data for each teams schedule
+        var teamStats = response.fullgameschedule.gameentry[i];
+        // created variables to hold team names and location of game, etc.
+        var awayTeam = teamStats.awayTeam.Name;
+        var homeTeam = teamStats.homeTeam.Name;
+        var gameDate = teamStats.date;
+        var gameID = teamStats.id;
+        console.log("------------------");
+        console.log("------GAME_ID-----");
+        console.log("------------------");
+        console.log("Game ID: " + gameID);
+        console.log ("uID2: " + gameID + "_" + homeTeam + "_" + awayTeam + "_" + gameDate);
+        // ajx2(gameID); // warning: will call API 256 times
+      }
+      ajx2(gameID); // will call API once (using last gameID in array)
+    }
+  })
+}
+
+$(window).on("load", ajx1);
+
+
+
+// this function calls second API url to get all team stats for each game
+// passing parameter "gameID" var -- its a required parameter for the API URL on line 483
+function ajx2(gameID) {
+  var year = "2017-2018"
+  var mode = "regular"
+  var password = "Rsvrfx35$";
+  var username = "makeitso";
+  var queryURL3 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/game_boxscore.json?gameid=" + gameID;
+  var queryURL4 = "https://api.mysportsfeeds.com/v1.1/pull/nfl/" + year + "-" + mode + "/game_boxscore.json?gameid=" + gameID + "&teamstats=Att,1stDownsTotal,3rdDownsPct,4thDownsPct,Penalties,PenaltyYards";
+  $.ajax({
+    type: "GET",
+    url: queryURL4,
+    dataType: 'json',
+    async: true,
+    headers: {
+      "Authorization": "Basic " + btoa(username + ":" + password)
+    },
+    // when ajax call done then return response
+    success: function (response){
+      console.log(response);
+      // variables to store response
+      var gameBoxScore = response.gameboxscore;
+      var awayTeamStats = response.gameboxscore.awayTeam.awayTeamStats;
+      var homeTeamStats = response.gameboxscore.homeTeam.homeTeamStats;
+      console.log(gameBoxScore);
+
+
+  //     console.log("-----------------------------");
+  //     console.log("------ HOME TEAM STATS ------"); 
+  // // down stats and penalties
+  //     console.log("----- downs and penalties -----");
+  //     // # first downs
+  //     var hFirstDownsTotal = Object.values(homeTeamStats.FirstDownsTotal);
+  //     var homeFirstDownsTotal = hFirstDownsTotal[2];
+  //     console.log("# First Downs: " + homeFirstDownsTotal);    
+    }
+  })
+}
+
+
+
+
 
 
 
@@ -45,6 +162,8 @@ function initMap() {
   var KCC = {lat: 39.048889, lng: -94.483889};
   var DEN = {lat: 39.743889, lng: -105.02};
   var OAK = {lat: 37.751667, lng: -122.200556};
+    
+//  icons
     var icon1 = {
     url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/San_Francisco_49ers_logo.svg/800px-San_Francisco_49ers_logo.svg.png", // url
     scaledSize: new google.maps.Size(40, 25), // scaled size
@@ -238,7 +357,7 @@ function initMap() {
     anchor: new google.maps.Point(0, 0) // anchor
     };
   
-  // create var for middle of map (these are coordinates for middle of U.S.)
+// create var for middle of map (these are coordinates for middle of U.S.)
   var middleLoc = {lat: 37.0558, lng: -95.6890};
   // create var for map
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -607,7 +726,7 @@ function initMap() {
       // console.log(teams[0].marker);
       // console.log(teams[0].fullName);
 
-  // add on click event listener - when a marker clicked
+// add on click event listener - when a marker clicked
     marker1.addListener('click', function() {
       // zoom in to area
       map.setZoom(6);
@@ -813,7 +932,7 @@ function initMap() {
     //   // var teamParam = "detroit-lions";
     //   console.log(queryURL);
 
-    // When search button is clicked...
+  // When search button is clicked...
     $("#searchButton").on("click", function(event) {
       event.preventDefault();
       userSearch();
@@ -852,7 +971,7 @@ function initMap() {
       }
     } // close userSearch function
 
-    // function which takes parameter from click event and calls API to get basic team info and id
+  // function which takes parameter from click event and calls API to get basic team info and id
     function callAPI(teamParam) {
       // default parameters for API URL 
       var year = "2017-2018"
@@ -911,7 +1030,7 @@ function initMap() {
 
       // call seasonFilter function and pass arguments needed for api URL parameters
       seasonFilter(teamParam, qryURL, db, season);
-      // this function takes all parameters required for AJAX call and queries API - if user selects buttons for season or type (playoff/regular) will bypass firebase
+  // this function takes all parameters required for AJAX call and queries API - if user selects buttons for season or type (playoff/regular) will bypass firebase
       function seasonFilter(teamParam, qryURL, db, season){
         // concats parameters to store api URL
         var queryURLz = qryURL + teamParam;
@@ -953,8 +1072,14 @@ function initMap() {
             // $("#headerButtons").addClass("animated bounceInUp");
             $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
             $("#schedule").addClass("panel-heading");
+            $("#stats").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
+            $("#stats").addClass("panel-heading animated bounceInRight");
             // create table headers and display in DOM
             $("#firstRow").html("<table><thead><tr><th>" + "Week" + "</th><th>" + "Date" + "</th><th>" + "Time" + "</th><th>" + "Stadium" + "</th><th>" + "Home Team" + "</th><th>" + "Away Team" + "</th></tr></thead></table>");
+            $("#firstRowTab2").html("<table><thead><tr><th>" + "Week" + "</th><th>" + "Date" + "</th><th>" + "Time" + "</th><th>" + "Stadium" + "</th><th>" + "Home Team" + "</th><th>" + "Away Team" + "</th></tr></thead></table>");
+            
+            
+            $("#scheduleTable").addClass("animated bounceInUp");
             $("#statsTable").addClass("animated bounceInUp");
             // call second API URL for score data (passing gameID parameter)
             // callAPI2(gameID);
@@ -968,6 +1093,8 @@ function initMap() {
             else if (db == "no") {
               // alert("something happens when user selects filter button");
               $("#tableBody").html("");
+              $("#table2Body").html("");
+
               // console.log(gameEntry);
               // loop through all the games 
               for (var i = 0; i < gameEntry.length; i++) {
@@ -1004,7 +1131,11 @@ function initMap() {
                 // console.log("Game Time: " + gameTime);
 
                 // display game info in DOM
-                $("#tableBody").append("<tr><td>" + weekNum + "</td><td>" + gameDate + "</td><td>" + gameTime + "</td><td>" + stadium + "</td><td>" + homeCityTeam + "</td><td>" + awayCityTeam + "</td></tr>");
+                $("#tableBody").append("<tr title='" + gameID + "'><td>" + weekNum + "</td><td>" + gameDate + "</td><td>" + gameTime + "</td><td>" + stadium + "</td><td>" + homeCityTeam + "</td><td>" + awayCityTeam + "</td></tr>");
+                $("#table2Body").append("<tr title='" + gameID + "'><td>" + weekNum + "</td><td>" + gameDate + "</td><td>" + gameTime + "</td><td>" + stadium + "</td><td>" + homeCityTeam + "</td><td>" + awayCityTeam + "</td></tr>");
+                
+                // $('#yourElementId').prop('title', gameID);
+
                 // call second API to return game stats for each game
                 // callAPI2(gameID);
               } // close for loop
@@ -1024,6 +1155,10 @@ function initMap() {
 
               $("#schedule").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
               $("#schedule").addClass("panel-heading animated bounceInRight");
+              $("#stats").html("<h3 id='seasonMode' class='panel-title'>" + displayCityName + " " + displayTeamName + " -- TEAM SCHEDULE (" + season +  " Season)</h3>");
+              $("#stats").addClass("panel-heading animated bounceInRight");
+            
+
             }
             // clear user search input form
             $("#search").val("");
@@ -1032,7 +1167,7 @@ function initMap() {
       } // close nested function seasonFilter
     } // close AJAX function
 
-    // this function calls second API url to get all team stats for each game
+  // this function calls second API url to get all team stats for each game
     // passing parameter "gameID" var -- its a required parameter for the API URL on line 483
     function callAPI2(gameID) {
       var year = "2017-2018"
@@ -1237,12 +1372,24 @@ function initMap() {
           console.log("Away Team: " + awayScore);         
           console.log("-----------------------");
           console.log("-----------------------");
-
+          // display team stats on DOM
+        $(".homeRow").html('<div class="col-md-2 main"><div class="card" ><div class="card-block"><h4 class="card-title">Down Stats</h4><hr><p class="card-text text-muted">' + "# First Downs: " + homeFirstDownsTotal + '</p><p class="card-text text-muted">3rd Down Pct (%):  ' + homeThirdDownsPct + '</p><p class="card-text text-muted">4th Down Pct (%):  ' + homeFourthDownsPct + '</p><p class="card-text text-muted">Penalties: ' + homePenalties + '</p><p class="card-text text-muted">Penalty Yds: ' + homePenaltyYds + '</p></div></div></div><div class="col-md-2 main"><div class="card" ><div class="card-block"><h4 class="card-title">Rushing Stats</h4><hr><p class="card-text text-muted">Rush Att:  ' + homeRushAttempts +  '</p><p class="card-text text-muted">Rush Yds:  ' + homeRushYards +'</p><p class="card-text text-muted">Yds/Rush:  ' + homeRushAverage + '</p><p class="card-text text-muted">Rush TDs: ' + homeRushTD + '</p></div></div></div> <div class="col-md-2 main"><div class="card" ><div class="card-block"><h4 class="card-title">Passing Stats</h4><hr><p class="card-text text-muted">Pass Att:  ' + homePassAttempts + '</p> <p class="card-text text-muted">Pass Comp:  ' + homePassCompletions + '</p><p class="card-text text-muted">Comp (%):  ' + homePassPct + '</p><p class="card-text text-muted">Pass Yds:  ' + homePassYards + '</p><p class="card-text text-muted">Pass TDs: ' + homePassTD + '</p></div></div></div> <div class="col-md-2 main"><div class="card" ><div class="card-block"><h4 class="card-title">Total Offense</h4><hr><p class="card-text text-muted">Yards:  ' + homeOffenseYds + '</p><p class="card-text text-muted">TDs:  ' + homeTotalTD + '</p><p class="card-text text-muted">Int:  ' + homeInt + '</p><p class="card-text text-muted">QB Rating:  ' + homeQBRating + '</p><p class="card-text text-muted"> </p></div></div></div> <div class="col-md-2 main"><div class="card" ><div class="card-block"><h4 class="card-title">Defense</h4><hr><p class="card-text text-muted">Int:  3</p><p class="card-text text-muted">TDs:  1</p><p class="card-text text-muted">Sacks:  4</p><p class="card-text text-muted">Rating:  155.0</p><p class="card-text text-muted"> </p></div></div></div> <div class="col-md-2 main"><div class="card" ><div class="card-block"><h4 class="card-title">Def/ST</h4><hr><p class="card-text text-muted">Passes Def:  4</p><p class="card-text text-muted">Fumble Rec:  6</p><p class="card-text text-muted">Punt Rtn TD:  1</p><p class="card-text text-muted">Kick Rtn TD:  0</p><p class="card-text text-muted">Field Goals:  0</p> </div></div></div><br>');
         } // close response function
       }) // close second AJAX call
     } //close callAPI2 function
 
+$('#tableBody').on('click', 'tr', function(){
+    // alert('You clicked row '+ ($(this).index()) );
+
+    var val = $(this);
+    // console.log(val);
+    var gameID = $(this).prop('title');
+    console.log(gameID);
+    callAPI2(gameID);
+});
+
 } // close initMap function
+
 
 
 // function to write data to firebase database
@@ -1250,6 +1397,7 @@ function fireBase(gameEntry) {
   // console.log(gameEntry);
     // Initialize Firebase
     $("#tableBody").html("");
+    $("#table2Body").html("");
 
   var config = {
     apiKey: "AIzaSyCrUsI3ehpMseYGOUCYEvAPsPGbYx8oqfI",
@@ -1341,8 +1489,9 @@ function fireBase(gameEntry) {
     // // display sports info/stats in DOM based on user actions
     // $("#tableBody").empty();
 
-    $("#tableBody").append("<tr><td>" + week + "</td><td>" + date + "</td><td>" + time + "</td><td>" + stadium + "</td><td>" + homeCityTeamDb + "</td><td>" + awayCityTeamDb + "</td></tr>");
-    
+    $("#tableBody").append("<tr title='" + id + "'><td>" + week + "</td><td>" + date + "</td><td>" + time + "</td><td>" + stadium + "</td><td>" + homeCityTeamDb + "</td><td>" + awayCityTeamDb + "</td></tr>");
+    // $("#table2Body").append("<tr title='" + id + "'><td>" + week + "</td><td>" + date + "</td><td>" + time + "</td><td>" + stadium + "</td><td>" + homeCityTeamDb + "</td><td>" + awayCityTeamDb + "</td></tr>");
+
     // $("#name-display").text(sv.name);
     // $("#role-display").text(sv.destination);
     // $("#start-date-display").text(sv.arrival);

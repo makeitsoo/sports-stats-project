@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sports Map</title>
+	<title>Sports Map</title>
 
-  <!-- link bootstrap version 4.0-alpha -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
-  <!--link bootswatch -->
-    <link rel="stylesheet" href="https://bootswatch.com/3/superhero/bootstrap.min.css">
+	<!--link bootstrap version 3.3.7-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!--link bootswatch -->
+		<link rel="stylesheet" href="https://bootswatch.com/3/superhero/bootstrap.min.css">
   <!-- awesome fonts --> 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <!-- CSS link -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style_dev.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
    <!-- animation library -->
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
@@ -24,51 +23,50 @@
 
 <!-- Nav Bar --> 
 <nav class="navbar navbar-default">
-  <!-- <div class="container-fluid"> -->
+  <div class="container-fluid">
     <div class="navbar-header">
-      <!-- <img src="https://www.organimi.com/wp-content/uploads/2017/07/NFL_logo.png" Width=class="navbar-brand" style="width:90px;height:110px; margin-bottom: -20px;"> -->
+      <img src="https://www.organimi.com/wp-content/uploads/2017/07/NFL_logo.png" Width=class="navbar-brand" style="width:90px;height:110px; margin-bottom: -20px;">
       </div>
 
-<!--     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-      <form id="searchBox" class="navbar-form navbar-center" role="search">
+      <form id="searchBox" class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input id="search" type="text" class="form-control" placeholder="Enter Team Name">
         </div>
         <button id="searchButton" type="submit" class="btn btn-default">Search</button>
       </form>
-      <!-- <ul class="nav navbar-nav navbar-right"> </ul> -->
+      <ul class="nav navbar-nav navbar-right"> </ul>
     </div>
-  <!-- </div> -->
+  </div>
 </nav>
 
 <!-- page container -->
   <div class="container">
-    <!-- Top Row for Map -->
-    <div class="row">
-      <div class="col-md-12">
+  	<!-- Top Row for Map -->
+  	<div class="row">
+  		<div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Select a Team</h3>
             <div id="buttons">
-              <a id="b2015" class="btn btn-primary btn-xs">2015</a>
-              <a id="b2016" class="btn btn-primary btn-xs">2016</a>
-              <a id="b2017" class="btn btn-primary btn-xs">2017</a>
+              <a id="b2015" class="btn btn-default btn-xs">2015</a>
+              <a id="b2016" class="btn btn-default btn-xs">2016</a>
+              <a id="b2017" class="btn btn-default btn-xs">2017</a>
               |
-              <a id="bRegular" class="btn btn-primary btn-xs">Regular</a>
-              <a id="bPlayoff" class="btn btn-primary btn-xs">Playoff</a>
+              <a id="bRegular" class="btn btn-default btn-xs">Regular</a>
+              <a id="bPlayoff" class="btn btn-default btn-xs">Playoff</a>
             </div>
           </div>
           <div class="panel-body">
-            <div id="map">
-
-            </div> <!-- close map div -->
+              <div id="map">
+              </div> <!-- close map div -->
           </div> <!-- close panel body -->
         </div> <!--panel close-->
-      </div> <!--close col -->
-    </div> <!--close row -->
+  		</div> <!--close col -->
+  	</div> <!--close row -->
  <!-- Table section --> 
- <div id="scheduleTable">
+ <div id="statsTable">
     <div class="row">
       <div class="col-md-12 main">
         <div class="panel panel-default">
@@ -80,43 +78,14 @@
             <thead id="firstRow"> 
             </thead>
               <tbody id="tableBody">
-
+              
               </tbody>
           </table> <!-- close table -->
         </div> <!--panel close-->
       </div> <!-- close col-md-12 -->
     </div> <!-- close row -->
-  </div> <!-- close statTable -->
-
-<div id="statsTable">
-    <div class="row homeRow">
-  
-    </div> <!-- close row -->
-  </div> <!-- close statTable2 -->
-<br>
- <!-- Table 2 section --> 
-<!--   <div id="statsTable">
-    <div class="row">
-      <div class="col-md-12 main">
-        <div class="panel panel-default">
-          <div id="stats"> -->
-            <!-- <h3 id="teamName" class="panel-title">Stats Table</h3> -->
-          <!-- </div> -->
-          <!-- Table 2-->
-          <!-- <table class="table table-striped table-hover">
-            <thead id="firstRowTab2"> 
-            </thead>
-              <tbody id="table2Body">
-              
-              </tbody> -->
-          <!-- </table> close table 2 -->
-        <!-- </div> panel close -->
-      <!-- </div> close col-md-12 -->
-    <!-- </div> close row -->
-  <!-- </div> close statTable2 -->
-
-<!-- row for logos -->
-<!--     <div class="row"> 
+  </div> <!-- close animation -->
+    <div class="row"> <!-- row for logos -->
       <div class="col-md-12 main">
         <img src="./assets/images/broncos.png" class="col-md-1">
         <img src="./assets/images/cowboys.png" class="col-md-1">
@@ -154,70 +123,76 @@
         <img src="./assets/images/49ers.png" class="col-md-1">
         <column class="col-md-1"></column>
         <column class="col-md-1"></column>
-
       </div>
-    </div> --> 
-    <!-- close row for logos -->
+    </div> <!-- close row for logos -->
   </div> <!-- close container -->
-  <hr class="divider">
 <footer class="page-footer center-on-small-only mdb-color lighten-3">
 
     <!--Footer Links-->
     <div class="container">
         <div class="row my-4">
 
-            <hr class="clearfix w-100 d-md-none">
-
-            <!--First column-->
-            <div class="col-md-4 col-lg-4 ml-auto">
-                <h5 class="title mb-4 font-bold">Team Schedules</h5>
-                    <p><a href="#!">Player Stats</a></p>
-                    <p><a href="#!">About Us</a></p>
-            </div>
             <!--/.First column-->
 
             <hr class="clearfix w-100 d-md-none">
- 
+
             <!--Second column-->
-            <div class="col-md-4 col-lg-4 text-center">
-                <h5 class="title mb-4 font-bold">Follow Us</h5>
-                <br>
-                <!--Social buttons-->
-                <div class="social-section mt-2 ">
-                  <ul id="socials">
-                    <!--Facebook-->
-                    <li><a href="https://www.facebook.com/BDOG84W"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <!--GitHub-->
-                    <li><a href="https://github.com/makeitsoo/sports-stats-project.git"><i class="fa fa-github" aria-hidden="true"></i></a></li>
-                    <!--Google +-->
-                    <li><a href="https://plus.google.com/u/0/105641225426694135588"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                    <!--LinkedIn-->
-                    <li><a href="https://www.linkedin.com/in/barrywilliams4/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                  </ul>
-                </div>
+            <div class="col-md-2 col-lg-2 ml-auto">
+                <h5 class="title mb-4 font-bold">About</h5>
+                
+                    <p><a href="#!">OUR PROJECTS</a></p>
+                    <p><a href="#!">ABOUT US</a></p>
+                    
+                
             </div>
             <!--/.Second column-->
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
 
             <hr class="clearfix w-100 d-md-none">
 
             <!--Third column-->
-            <div class="address col-md-4 col-lg-4">
-                <h5 class="title mb-4 font-bold text-right">Contact Us</h5>
+            <div class="col-md-4 col-lg-3">
+                <h5 class="title mb-4 font-bold">Address</h5>
                 <!--Info-->
-                <p class="text-right"><i class="fa fa-home mr-3"></i> San Francisco, CA 94117</p>
-                <p class="text-right"><i class="fa fa-envelope mr-3"></i> barrywilliams84@gmail.com</p>
-                <p class="text-right"><i class="fa fa-phone mr-3"></i> 206.300.7399</p>
+                <p><i class="fa fa-home mr-3"></i> San Francisco, CA 94107</p>
+                <p><i class="fa fa-envelope mr-3"></i> project1@gmail.com</p>
+                <p><i class="fa fa-phone mr-3"></i> 650 426 81 47</p>
             </div>
             <!--/.Third column-->
+
+            <hr class="clearfix w-100 d-md-none">
+
+            <!--Fourth column-->
+            <div class="col-md-2 col-lg-2 text-center">
+                <h5 class="title mb-4 font-bold">Follow Us</h5>
+                <!--Social buttons-->
+                <div class="social-section mt-2 ">
+                  <ul>
+                    <!--Facebook-->
+                    <li><a href="https://www.facebook.com/pgerasimenko1"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <!--GitHub-->
+                    <li><a href="https://github.com/makeitsoo/sports-stats-project.git"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                    <!--Google +-->
+                    <li><a href="https://plus.google.com/u/0/104317245624842796020"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                    <!--LinkedIn-->
+                    <li><a href="https://www.linkedin.com/in/pavelsrqa/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+
+                  </ul>
+                </div>
+            </div>
+            <!--/.Fourth column-->
+
         </div>
     </div>
     <!--/.Footer Links-->
+
+    <!--Copyright-->
+<!--     <div class="footer-copyright">
+        <div class="container-flui">
+            © 2017-2018 Copyright: <a href="#"> Project 1 </a>
+
+        </div>
+    </div> -->
+    <!--/.Copyright-->
 
 </footer>
 <!--/.Footer-->
@@ -229,7 +204,7 @@
 <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
 
 <!-- link to JavaScript -->
-<script type="text/javascript" src="assets/javascript/app_dev.js"> </script>
+<script type="text/javascript" src="assets/javascript/appFinal.js"> </script>
 <!-- link to google maps API - API key: AIzaSyDpBWmjLvYi9EQfmGetKl8wtPZpGVRyZHA -->
 <script   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpBWmjLvYi9EQfmGetKl8wtPZpGVRyZHA&callback=initMap" async defer >
 </script>
